@@ -1,0 +1,57 @@
+.cardWrapper{
+  border: 1px solid rgb(193, 190, 190);
+  border-radius: 10px;
+  position: relative;
+  width: min(90%, 500px);
+}
+
+.cardImage{
+  padding: 2rem;
+  border-bottom: 1px solid  rgb(193, 190, 190);
+}
+
+.cardImage img{
+  height: 250px;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.cardBody{
+  padding: 1rem;
+  position: relative;
+}
+
+.cardBody > *{
+  margin-block: 1rem;
+}
+
+.cardIcon{
+  font-size: 2rem;
+  color: white;
+}
+
+.cardButton{
+  padding: 0.8rem;
+  position: absolute;
+  background-color: #f85555;
+  border: none;
+  border-radius: 50%;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.cardTitle{
+  letter-spacing: 1.5px;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.price{
+  color: gray;
+}
+
+.linkCard{
+  color: black;
+  display: block;
+}

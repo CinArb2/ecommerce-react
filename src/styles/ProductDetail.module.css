@@ -1,0 +1,9 @@
+.productDetailWrapper{
+  padding: 2rem;
+}
+.breadcrumb{
+  text-align: left;
+}
+.productDescription{
+  display: flex;
+}
