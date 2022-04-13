@@ -3,6 +3,7 @@ import { actions } from './actionTypes'
 const initialState = {
   products: [],
   isLoading: false,
+  isOpenModal: false,
   selectedProduct: {},
   relatedProd: [],
   categories: []
@@ -44,6 +45,11 @@ export const productReducer = (state = initialState, action) => {
       return {
         ...state,
         categories: action.payload
+      };
+    case actions.OPEN_MODAL:
+      return {
+        ...state,
+        setModal: action.payload
       };
     default:
       return state;

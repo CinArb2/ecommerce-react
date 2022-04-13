@@ -17,13 +17,16 @@
 
 
 .navbarList{
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   padding-left: 0;
   display: flex;
-  gap: 5rem;
-  color: rgb(96, 96, 96);
-  font-size: 2.5rem;
+  gap: 2rem;
   margin-block: 0;
 }
 
+.navbarBtn{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
 

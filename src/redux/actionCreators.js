@@ -95,3 +95,10 @@ export const setCategories = (data) => {
     payload: data
   }
 }
+
+export const setModal = (isOpen) => {
+  return {
+    type: actions.OPEN_MODAL,
+    payload: isOpen
+  }
+}
