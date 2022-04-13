@@ -1,6 +1,6 @@
 .containerProducts{
   display: flex;
-  padding: 2rem;
+  padding-block: 2rem;
   gap: 2rem;
   flex-wrap: wrap;
   margin: 0 auto;

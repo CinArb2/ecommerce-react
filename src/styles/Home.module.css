@@ -1,0 +1,21 @@
+.mainHome{
+  display: flex;
+  gap: 2rem;
+  position: relative;
+  max-width: 2000px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.asideHome{
+  align-self: flex-start;
+  position: sticky;
+  top: 7rem;
+  padding: 1rem;
+  width: 10%;
+  min-width: 235px;
+}
+
+.contentHome{
+  width: 90%;
+}

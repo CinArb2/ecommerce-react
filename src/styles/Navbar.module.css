@@ -15,10 +15,15 @@
   color: #f85555;
 }
 
+
 .navbarList{
   font-size: 1.5rem;
   padding-left: 0;
   display: flex;
-  gap: 2rem;
+  gap: 5rem;
   color: rgb(96, 96, 96);
+  font-size: 2.5rem;
+  margin-block: 0;
 }
+
+

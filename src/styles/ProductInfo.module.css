@@ -1,0 +1,60 @@
+.productContainer{
+  padding: 2rem;
+  line-height: 1.5;
+}
+.title{
+  margin-block: 2rem;
+  font-size: 2rem;
+}
+
+.description{
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+.containerOtros{
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.containerPrice, .containerCounter{
+  width: 50%;
+}
+
+.tag{
+  color: rgb(136, 134, 134);
+  margin-bottom: 1rem;
+}
+
+.price{
+  font-size: 1.4rem;
+}
+
+.btn, .counter{
+  background-color: white;
+  border: 1px solid gray;
+  font-size: 1.5rem;
+  color: gray;
+}
+
+.btn{
+  cursor: pointer;
+  width: 50px;
+  padding-block: 0;
+}
+
+.counter{
+  display: inline-block;
+  width: 70px;
+  text-align: center;
+}
+
+.btnCart{
+  background-color: #f85555;
+  border: none;
+  color: white;
+  width: 100%;
+  font-size: 2rem;
+  margin-block: 1rem;
+}

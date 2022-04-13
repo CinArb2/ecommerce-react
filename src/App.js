@@ -5,6 +5,7 @@ import store from "./redux/store";
 import { Provider } from 'react-redux'
 import ProductDetail from "./Pages/ProductDetail";
 
+
 function App() {
   return (
     <Provider store={store}>

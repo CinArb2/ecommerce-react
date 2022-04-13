@@ -1,0 +1,26 @@
+.form{
+  max-width: 1000px;
+  margin-block: 1rem;
+  line-height: 0;
+  display: flex;
+  font-size: 1.3rem;
+}
+
+.btnForm{
+  background-color: #f85555;
+  font-size: 1.5rem;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.formInput{
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  height: 48px;
+  width: 100%;
+  border: 1px solid rgb(193, 190, 190);
+  padding-left: 1rem;
+}

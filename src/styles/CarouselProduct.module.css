@@ -1,0 +1,47 @@
+.container{
+  width: 500px;
+  height: 600px;
+  padding: 2rem;
+  position: relative;
+}
+
+.image{
+  width: 70%;
+  object-fit: contain;
+  height: 450px;
+  margin: auto;
+}
+
+.thumb{
+  height: 100px;
+}
+
+.container li{
+  width: 30%;
+}
+
+.container li img{
+  width: 100%;
+  height: 100px;
+  object-fit: contain;
+}
+
+.btn{
+  position: absolute;
+  background-color: #f85555;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.btn.left{
+  left: 0;
+  top: 50%;
+}
+
+.btn.right{
+  right: 0;
+  top: 50%;
+}

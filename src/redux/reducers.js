@@ -4,6 +4,8 @@ const initialState = {
   products: [],
   isLoading: false,
   selectedProduct: {},
+  relatedProd: [],
+  categories: []
 }
 
 export const productReducer = (state = initialState, action) => {
@@ -22,6 +24,26 @@ export const productReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedProduct: action.payload
+      };
+    case actions.GET_RELATED_PRODUCTS:
+      return {
+        ...state,
+        relatedProd: action.payload
+      };
+    case actions.REMOVE_PRODUCT_SELECTED:
+      return {
+        ...state,
+        selectedProduct: action.payload
+      };
+    case actions.REMOVE_LIST_RELATED:
+      return {
+        ...state,
+        relatedProd: action.payload
+      };
+    case actions.SET_CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload
       };
     default:
       return state;

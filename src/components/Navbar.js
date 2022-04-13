@@ -8,8 +8,8 @@ const Navbar = () => {
     <nav className={style.navBar}>
       <NavLink to='/' className={style.logo}>ecommerce</NavLink>
       <ul className={style.navbarList}>
-        <li>Login <BsPersonCircle /></li>
-        <li>Purchases <BsFillInboxFill /></li>
+        <li><BsPersonCircle /></li>
+        <li><BsFillInboxFill /></li>
         <li> <BsCart2 /></li>
       </ul>
     </nav>

@@ -2,7 +2,7 @@
   border: 1px solid rgb(193, 190, 190);
   border-radius: 10px;
   position: relative;
-  width: min(90%, 500px);
+  width: min(90%, 350px);
 }
 
 .cardImage{
@@ -54,4 +54,9 @@
 .linkCard{
   color: black;
   display: block;
+}
+
+.cardPrice{
+  font-size: 1.4rem;
+  font-weight: bold;
 }

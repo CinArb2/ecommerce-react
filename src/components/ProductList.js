@@ -16,7 +16,7 @@ const ProductList = () => {
     <div className={styles.containerProducts}>
       {
         products.map(product => (
-          <ProductCard  key={product.id} productInfo={product}/>
+          <ProductCard key={product.id} productInfo={product} path={'/product/'}/>
         ))
       }
     </div>

@@ -1,0 +1,20 @@
+.asideTitle{
+  color: #f85555;
+  margin-bottom: 1rem;
+}
+
+.categoryBtns{
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+.btnAside{
+  background-color: transparent;
+  border: none;
+  margin-block: 0.5rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  letter-spacing: 1.2px;
+  text-align: left;
+}
