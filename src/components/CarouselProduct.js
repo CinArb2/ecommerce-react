@@ -13,9 +13,9 @@ const CarouselProduct = ({ selectedProduct }) => {
   const settings = {
       customPaging: function(i) {
       return (
-          <a className={style.thumb} >
+          <div className={style.thumb} >
             <img src={selectedProduct?.productImgs?.[i]} alt='slice' className={style.imgThumb} />
-          </a>
+          </div>
         )
       },
       infinite: false,

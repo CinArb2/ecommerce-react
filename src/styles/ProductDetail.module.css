@@ -3,12 +3,13 @@
 }
 
 .breadcrumbLink{
-  color: black;
+  color: blue;
 }
 
 .breadcrumb{
   text-align: left;
   font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .productDescription{
@@ -22,13 +23,36 @@
 .relatedProducts{
   padding: 2rem;
   margin: 2rem auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-flow: row dense;
+  grid-gap: 2rem;
 }
 
 .subheading{
   color: #f85555;
   margin-block: 2rem;
+}
+
+.separator{
+  font-size: 1.2rem;
+  color: #f85555;
+  padding-inline: 1rem;
+  line-height: 0;
+}
+
+@media screen and (max-width: 1000px){
+  .relatedProducts{
+    grid-template-columns: 1fr 1fr;
+  }
+  .productDescription{
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media screen and (max-width: 600px){
+  .relatedProducts{
+    grid-template-columns: 1fr;
+  }
 }

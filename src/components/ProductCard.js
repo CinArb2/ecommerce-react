@@ -18,7 +18,7 @@ const ProductCard = ({productInfo, path}) => {
       id: productInfo.id,
       quantity: 1
     }
-    
+    if(!localStorage.getItem('token')) setIsOpen(true)
     if (localStorage.getItem('token') && !cart.products?.some(el => el.id === productInfo.id)) {
       dispatch(addToCart(productCart))
       dispatch(getCart())

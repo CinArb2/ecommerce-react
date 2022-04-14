@@ -7,6 +7,7 @@ import CarouselProduct from '../components/CarouselProduct'
 import ProductInfo from '../components/ProductInfo'
 import ProductCard from '../components/ProductCard'
 import { Link } from 'react-router-dom'
+import { MdOutlineDoubleArrow } from 'react-icons/md';
 
 const ProductDetail = () => {
   const products = useSelector(state => state.products)
@@ -33,8 +34,9 @@ const ProductDetail = () => {
   
   return (
     <div className={style.productDetailWrapper}>
-      <Link to='/'  className={style.breadcrumbLink}>Home</Link>
-      <span className={style.breadcrumb}> - {selectedProduct?.title}</span>
+      <Link to='/' className={style.breadcrumbLink}>Home</Link>
+      <span className={style.separator}><MdOutlineDoubleArrow/></span>
+      <span className={style.breadcrumb}>{selectedProduct?.title}</span>
       <div className={style.productDescription}>
         <div className={style.carouselContainer}>
           <CarouselProduct selectedProduct={selectedProduct}/>

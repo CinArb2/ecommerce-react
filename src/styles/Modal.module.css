@@ -42,3 +42,15 @@
   font-size: 2rem;
   cursor: pointer;
 }
+
+@media screen and (max-width: 800px){
+  .modalWrapper{
+    left: 40%;
+  }
+}
+
+@media screen and (max-width: 500px){
+  .modalWrapper{
+    left: 10%;
+  }
+}

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=PT+Sans+Caption:wght@400;700&display=swap');
 
 /* font-family: 'Arvo', serif;
 font-family: 'Lato', sans-serif; */
@@ -64,6 +64,6 @@ select {
 }
 
 h1, h2, h3{
-  font-family: 'Arvo', serif;
+  font-family: 'PT Sans Caption', sans-serif;
 }
 

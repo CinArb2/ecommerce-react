@@ -1,5 +1,5 @@
 .container{
-  background-color: rgba(237, 237, 241, 0.416);
+  background-color: rgba(255, 255, 255, 0.8);
   position: fixed;
   top: 0;
   bottom: 0;
@@ -25,10 +25,10 @@
   width: 64px;
   height: 64px;
   margin: 8px;
-  border: 8px solid #fff;
+  border: 8px solid #f85555;
   border-radius: 50%;
   animation: ldsRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #fff transparent transparent transparent;
+  border-color: #f85555 transparent transparent transparent;
 }
 
 .ldsRing div:nth-child(1) {

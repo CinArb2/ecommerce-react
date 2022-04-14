@@ -13,14 +13,22 @@ const Cart = ({setIsLogin}) => {
   return (
     <div>
       <h1>Cart</h1>
-      {localStorage.getItem('token') ?
-        cart?.products?.map(prod => (
-          <div key={prod.id}>
-            <p >{prod.title}</p>
-            <p>{prod.productsInCart.quantity}</p>
-            <button onClick={()=>handleDelete(prod.id)}>Delete</button>
+      {
+        localStorage.getItem('token') ?
+          <div>
+          {
+              cart?.products?.map(prod => (
+                <div key={prod.id}>
+                  <p >{prod.title}</p>
+                  <p>{prod.productsInCart.quantity}</p>
+                  <button onClick={()=>handleDelete(prod.id)}>Delete</button>
+                </div>
+            ))
+            }
+            <div>
+              <button>Checkout</button>
+            </div>
           </div>
-        ))
         :
         <div>
           <h3>Please login</h3>

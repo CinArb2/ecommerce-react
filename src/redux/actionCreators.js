@@ -13,10 +13,8 @@ export const fetchProducts = () => {
 
 export const fetchRelatedProducts = (id) => {
   return async (dispatch) => {
-    dispatch(setIsLoading(true))
     const response = await axios.get(`https://ecommerce-api-react.herokuapp.com/api/v1/products?category=${id}`)
     dispatch(getRelatedProducts(response.data.data.products))
-    dispatch(setIsLoading(false))
   }
 }
 
@@ -62,7 +60,6 @@ export const addToCart = (product) => {
     dispatch(setIsLoading(true))
     return axios.post(`https://ecommerce-api-react.herokuapp.com/api/v1/cart`, product, getConfig())
       .then(() => dispatch(getCart()))
-      .catch(error => console.log(error.response))
       .finally(()=> dispatch(setIsLoading(false)))
   }
 }
@@ -82,7 +79,6 @@ export const updateCart = (product) => {
     dispatch(setIsLoading(true))
     return axios.patch(`https://ecommerce-api-react.herokuapp.com/api/v1/cart`, product, getConfig())
       .then(() => dispatch(getCart()))
-      .catch(error => console.log(error.response))
       .finally(()=> dispatch(setIsLoading(false)))
   }
 }
