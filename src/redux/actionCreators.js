@@ -1,5 +1,6 @@
 import { actions } from './actionTypes'
 import axios from 'axios'
+import { getConfig } from '../helper/getConfig'
 
 export const fetchProducts = () => {
   return async (dispatch) => {
@@ -43,6 +44,46 @@ export const fetchCategories = () => {
     const response = await axios.get(`https://ecommerce-api-react.herokuapp.com/api/v1/products/categories`)
     dispatch(setCategories(response.data.data.categories))
     dispatch(setIsLoading(false))
+  }
+}
+
+
+export const getCart = ( ) => {
+  return async (dispatch) => {
+    dispatch(setIsLoading(true))
+    const response = await axios.get(`https://ecommerce-api-react.herokuapp.com/api/v1/cart`, getConfig())
+    dispatch(setCart(response.data.data.cart))
+    dispatch(setIsLoading(false))
+  }
+}
+
+export const addToCart = (product) => {
+  return  (dispatch) => {
+    dispatch(setIsLoading(true))
+    return axios.post(`https://ecommerce-api-react.herokuapp.com/api/v1/cart`, product, getConfig())
+      .then(() => dispatch(getCart()))
+      .catch(error => console.log(error.response))
+      .finally(()=> dispatch(setIsLoading(false)))
+  }
+}
+
+export const deleteProduct = (id) => {
+  return  (dispatch) => {
+    dispatch(setIsLoading(true))
+    return axios.delete(`https://ecommerce-api-react.herokuapp.com/api/v1/cart/${id}`, getConfig())
+                .then(() => dispatch(getCart()))
+                .finally(()=> dispatch(setIsLoading(false)))
+  }
+}
+
+
+export const updateCart = (product) => {
+  return  (dispatch) => {
+    dispatch(setIsLoading(true))
+    return axios.patch(`https://ecommerce-api-react.herokuapp.com/api/v1/cart`, product, getConfig())
+      .then(() => dispatch(getCart()))
+      .catch(error => console.log(error.response))
+      .finally(()=> dispatch(setIsLoading(false)))
   }
 }
 
@@ -96,9 +137,17 @@ export const setCategories = (data) => {
   }
 }
 
-export const setModal = (isOpen) => {
+export const setCart = (data) => {
   return {
-    type: actions.OPEN_MODAL,
-    payload: isOpen
+    type: actions.ADD_TO_CART,
+    payload: data
   }
 }
+
+export const cleanInfoCart = () => {
+  return {
+    type: actions.CLEAN_CART,
+    payload: {}
+  }
+}
+

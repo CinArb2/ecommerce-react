@@ -1,16 +1,17 @@
 import { HashRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import Navbar from "./components/Navbar";
-import store from "./redux/store";
-import { Provider } from 'react-redux'
 import ProductDetail from "./Pages/ProductDetail";
+import Loader from "./components/Loader";
+import { useSelector } from "react-redux";
 
 
 function App() {
+  const isLoading = useSelector((state) => state.isLoading);
   return (
-    <Provider store={store}>
       <div className="App">
         <HashRouter>
+          {isLoading && <Loader/>}
           <Navbar/>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -18,7 +19,6 @@ function App() {
           </Routes>
         </HashRouter>
       </div>
-    </Provider>
   );
 }
 

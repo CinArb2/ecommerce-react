@@ -3,10 +3,10 @@ import { actions } from './actionTypes'
 const initialState = {
   products: [],
   isLoading: false,
-  isOpenModal: false,
   selectedProduct: {},
   relatedProd: [],
-  categories: []
+  categories: [],
+  cart: {}
 }
 
 export const productReducer = (state = initialState, action) => {
@@ -46,10 +46,15 @@ export const productReducer = (state = initialState, action) => {
         ...state,
         categories: action.payload
       };
-    case actions.OPEN_MODAL:
+    case actions.ADD_TO_CART:
       return {
         ...state,
-        setModal: action.payload
+        cart: action.payload
+      };
+    case actions.CLEAN_CART:
+      return {
+        ...state,
+        cart: action.payload
       };
     default:
       return state;
