@@ -26,7 +26,9 @@ const Cart = ({setIsLogin}) => {
   const sum = cart.products?.reduce((prev, curr) => prev + curr.price * curr.productsInCart.quantity, 0)
   
   useEffect(() => {
-    dispatch(getCart())
+    if (localStorage.getItem('token')) {
+      dispatch(getCart())
+    }
   }, [dispatch])
   
   return (
