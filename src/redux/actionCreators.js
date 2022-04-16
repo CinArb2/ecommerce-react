@@ -12,9 +12,12 @@ export const fetchProducts = () => {
 }
 
 export const fetchRelatedProducts = (id) => {
+  
   return async (dispatch) => {
+    dispatch(setIsLoading(true))
     const response = await axios.get(`https://ecommerce-api-react.herokuapp.com/api/v1/products?category=${id}`)
     dispatch(getRelatedProducts(response.data.data.products))
+    dispatch(setIsLoading(false))
   }
 }
 
@@ -38,20 +41,20 @@ export const fetchProductQuery = (data) => {
 
 export const fetchCategories = () => {
   return async (dispatch) => {
-    dispatch(setIsLoading(true))
     const response = await axios.get(`https://ecommerce-api-react.herokuapp.com/api/v1/products/categories`)
     dispatch(setCategories(response.data.data.categories))
-    dispatch(setIsLoading(false))
   }
 }
 
-
 export const getCart = ( ) => {
-  return async (dispatch) => {
-    dispatch(setIsLoading(true))
-    const response = await axios.get(`https://ecommerce-api-react.herokuapp.com/api/v1/cart`, getConfig())
-    dispatch(setCart(response.data.data.cart))
-    dispatch(setIsLoading(false))
+  return (dispatch) => {
+    return axios.get(`https://ecommerce-api-react.herokuapp.com/api/v1/cart`, getConfig())
+      .then((response) => dispatch(setCart(response.data.data.cart)))
+      .catch(error => {
+        if (error.response.status === 404) {
+          dispatch(cleanInfoCart())
+        }
+      })
   }
 }
 
@@ -60,6 +63,7 @@ export const addToCart = (product) => {
     dispatch(setIsLoading(true))
     return axios.post(`https://ecommerce-api-react.herokuapp.com/api/v1/cart`, product, getConfig())
       .then(() => dispatch(getCart()))
+      .catch((error) =>  console.log(error.response))
       .finally(()=> dispatch(setIsLoading(false)))
   }
 }
@@ -68,11 +72,19 @@ export const deleteProduct = (id) => {
   return  (dispatch) => {
     dispatch(setIsLoading(true))
     return axios.delete(`https://ecommerce-api-react.herokuapp.com/api/v1/cart/${id}`, getConfig())
-                .then(() => dispatch(getCart()))
-                .finally(()=> dispatch(setIsLoading(false)))
+      .then(() => dispatch(getCart()))
+      .catch(() =>  console.clear())
+      .finally(()=> dispatch(setIsLoading(false)))
   }
 }
 
+export const emptyCart = () => {
+  return  (dispatch) => {
+    return axios.post(`https://ecommerce-api-react.herokuapp.com/api/v1/purchases`, {}, getConfig())
+      .then(() => dispatch(cleanInfoCart()))
+      .catch((error) =>  console.log(error.response))
+  }
+}
 
 export const updateCart = (product) => {
   return  (dispatch) => {
@@ -83,13 +95,21 @@ export const updateCart = (product) => {
   }
 }
 
+export const purchaseCart = () => {
+  return  (dispatch) => {
+    dispatch(setIsLoading(true))
+    return axios.post(`https://ecommerce-api-react.herokuapp.com/api/v1/purchases`, {} , getConfig())
+      .then(() => dispatch(cleanInfoCart()))
+      .finally(()=> dispatch(setIsLoading(false)))
+  }
+}
+
 export const setProductList = (data) => {
   return {
     type: actions.SET_PRODUCT_LIST,
     payload: data
   }
 }
-
 
 export const setIsLoading = (isLoading) => {
   return {

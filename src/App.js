@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import ProductDetail from "./Pages/ProductDetail";
 import Loader from "./components/Loader";
 import { useSelector } from "react-redux";
+import Purchases from "./Pages/Purchases";
+import ProtectedRoutes from "./Pages/ProtectedRoutes";
 
 
 function App() {
@@ -16,6 +18,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/product/:id" element={<ProductDetail />} />
+            <Route element={<ProtectedRoutes />}>
+              <Route path="/purchases" element={<Purchases />} />
+            </Route>
           </Routes>
         </HashRouter>
       </div>

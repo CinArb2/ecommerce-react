@@ -5,15 +5,15 @@ import style from '../styles/Navbar.module.css'
 import Modal from './Modal';
 import Login from './Login';
 import Cart from './Cart';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Logout from './Logout';
-import { getCart } from '../redux/actionCreators';
+import SignUp from './SignUp';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isLogin, setIsLogin] = useState(false)
+  const [signUp, setSignUp] = useState(false)
   const token = useSelector(state => state.token)
-  const dispatch = useDispatch()
 
   const handleLoginBtn = () => {
     setIsOpen(true)
@@ -23,7 +23,15 @@ const Navbar = () => {
   const handleCartBtn = () => {
     setIsOpen(true)
     setIsLogin(false)
-    //dispatch(getCart())
+  }
+
+  const handlePurchases = () => {
+    if (localStorage.getItem('token')) {
+      setIsOpen(false)
+    } else {
+      setIsOpen(true)
+      setIsLogin(true)
+    }
   }
 
   useEffect(() => {
@@ -43,9 +51,11 @@ const Navbar = () => {
             </button>
           </li>
           <li>
-            <button className={style.navbarBtn}>
+            <NavLink to='/purchases'
+              className={style.navbarBtn}
+              onClick={handlePurchases}>
               <BsFillInboxFill />
-            </button>
+            </NavLink>
           </li>
           <li>
             <button className={style.navbarBtn} onClick={handleCartBtn}>
@@ -56,13 +66,21 @@ const Navbar = () => {
       </nav>
       <Modal
         closeModal={setIsOpen}
-        isOpen={isOpen}
-      >
+        isOpen={isOpen}>
         {isLogin ?
           localStorage.getItem('token') ?
             <Logout closeModal={setIsOpen}/> :
-            <Login closeModal={setIsOpen} />
-          : <Cart setIsLogin={setIsLogin}/>}
+            <Login
+              closeModal={setIsOpen}
+              setSignUp={setSignUp}
+              setIsLogin={setIsLogin}/>
+          : signUp ?
+            <SignUp
+              closeModal={setIsOpen}
+              setSignUp={setSignUp}
+              setIsLogin={setIsLogin}/> 
+            :
+            <Cart setIsLogin={setIsLogin} />}
       </Modal>
     </>
   )

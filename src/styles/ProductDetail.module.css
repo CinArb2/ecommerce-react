@@ -21,7 +21,6 @@
 }
 
 .relatedProducts{
-  padding: 2rem;
   margin: 2rem auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -31,7 +30,7 @@
 
 .subheading{
   color: #f85555;
-  margin-block: 2rem;
+  margin-block: 4rem;
 }
 
 .separator{

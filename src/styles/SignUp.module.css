@@ -1,4 +1,4 @@
-.loginContainer{
+.signUpContainer{
   padding: 1rem;
   min-height: 400px;
   text-align: left;
@@ -23,7 +23,7 @@
   height: 50px;
 }
 
-.loginButton{
+.signUpButton{
   width: 90%;
   max-width: 200px;
   background-color: #f85555;
@@ -35,9 +35,9 @@
   margin-block: 0.5rem;
 }
 
-.loginTitle{
+.signUpTitle{
   color: #f85555;
-  margin-bottom: 2rem;
+  margin-block: 2rem;
   text-align: center;
 }
 

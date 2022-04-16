@@ -1,16 +1,10 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchProducts } from '../redux/actionCreators'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import styles from '../styles/ProductList.module.css'
 import ProductCard from './ProductCard'
 
 const ProductList = () => {
-  const dispatch = useDispatch()
   const products = useSelector(state => state.products)
-
-  useEffect(() => {
-    dispatch(fetchProducts())
-  }, [dispatch])
 
   return (
     <div className={styles.containerProducts}>

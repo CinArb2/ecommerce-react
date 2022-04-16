@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
-import { fetchProducts, setSelectedProduct, fetchRelatedProducts, removeProductSelected, removeListRelated } from '../redux/actionCreators'
+import { setSelectedProduct, fetchRelatedProducts, removeProductSelected } from '../redux/actionCreators'
 import style from '../styles/ProductDetail.module.css'
 import CarouselProduct from '../components/CarouselProduct'
 import ProductInfo from '../components/ProductInfo'
@@ -17,10 +17,6 @@ const ProductDetail = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchProducts())
-  }, [dispatch])
-
-  useEffect(() => {
     const productSelected = products.find(el => el.id === id * 1)
     dispatch(setSelectedProduct(productSelected))
     if (productSelected) {
@@ -28,7 +24,6 @@ const ProductDetail = () => {
     }
     return () => {
       dispatch(removeProductSelected())
-      dispatch(removeListRelated())
     }
   }, [id, products, dispatch])
   

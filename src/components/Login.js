@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styles from '../styles/Login.module.css'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
-import { setUserData } from '../redux/actionCreators'
 
-const Login = ({closeModal}) => {
+const Login = ({closeModal, setSignUp, setIsLogin}) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -22,7 +20,6 @@ const Login = ({closeModal}) => {
       }
     })
   }
-
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -42,6 +39,7 @@ const Login = ({closeModal}) => {
   
   return (
     <div className={styles.loginContainer}>
+      <img src='./images/login.png' alt="" />
       <h1 className={styles.loginTitle}>Login</h1>
       <form onSubmit={handleSubmit}>
         <label className={styles.inputLabel}>Email</label>
@@ -62,7 +60,16 @@ const Login = ({closeModal}) => {
         />
         <button className={styles.loginButton}>Login</button>
         {loginError && <p>{ loginError}</p>}
-        <p>Don't have an account? <span>Sign up</span></p>
+        <p>Don't have an account?
+          <span
+            className={styles.btnRedirect}
+            onClick={() => {
+              setSignUp(true);
+              setIsLogin(false)
+            }}>
+            Sign up
+          </span>
+        </p>
       </form>
     </div>
   )

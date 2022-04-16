@@ -4,6 +4,7 @@
   line-height: 0;
   display: flex;
   font-size: 1.3rem;
+  margin-block: 3rem;
 }
 
 .btnForm{
@@ -14,6 +15,7 @@
   padding: 0.5rem 1rem;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  cursor: pointer;
 }
 
 .formInput{
@@ -23,4 +25,9 @@
   width: 100%;
   border: 1px solid rgb(193, 190, 190);
   padding-left: 1rem;
+  
+}
+
+.errorMessage{
+  margin-block: 2rem;
 }
