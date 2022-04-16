@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { deleteProduct, emptyCart, getCart, purchaseCart } from '../redux/actionCreators'
 import styles from '../styles/Cart.module.css'
 import { BsTrash } from 'react-icons/bs';
 
-const Cart = ({setIsLogin}) => {
+const Cart = ({setIsLogin, setIsOpen}) => {
   const dispatch = useDispatch()
   const cart = useSelector(state => state.cart)
+  const navigate = useNavigate()
 
   const handleDelete = (id) => {
     if (cart.products.length > 1) {
@@ -20,6 +22,8 @@ const Cart = ({setIsLogin}) => {
   const handleCheckout = () => {
     if (cart.products) {
       dispatch(purchaseCart())
+      setIsOpen(false)
+      navigate('/purchases')
     } 
   }
 

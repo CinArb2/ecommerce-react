@@ -2,6 +2,7 @@
 .containerCart{
   overflow: auto;
   width: 100%;
+  position: relative;
 }
 
 .cartWrapperLogin{
@@ -95,4 +96,10 @@
   display: grid;
   place-content: center;
   height: 100%;
+}
+
+@media screen and (max-width: 500px){
+  .total{
+    display: block;
+  }
 }

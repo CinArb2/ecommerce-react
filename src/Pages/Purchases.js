@@ -19,9 +19,12 @@ const Purchases = () => {
       <h1 className={styles.purchasesTitle}>Purchases</h1>
       <div >
         {
-        listPurchases.map(purchase => (
-          <PurchaseDetail key={purchase.id} purchase={purchase}/>
-        ))
+          listPurchases.length > 0 ?
+            listPurchases.map(purchase => (
+              <PurchaseDetail key={purchase.id} purchase={purchase}/>
+            ))
+          :
+          <h1>No products purchased</h1>
        }
       </div>
     </div>

@@ -86,7 +86,8 @@ const Navbar = () => {
               setSignUp={setSignUp}
               setIsLogin={setIsLogin}/> 
             :
-            <Cart setIsLogin={setIsLogin} />}
+            <Cart setIsLogin={setIsLogin}
+              setIsOpen={setIsOpen}/>}
       </Modal>
     </>
   )
