@@ -1,3 +1,8 @@
+.logoutContainer{
+  padding: 2rem;
+  text-align: center;
+}
+
 .btnLogout{
   width: 90%;
   max-width: 200px;
@@ -12,5 +17,5 @@
 
 .logoutTitle{
   color: #f85555;
-  margin-block: 2rem;
+  margin-bottom: 2rem;
 }

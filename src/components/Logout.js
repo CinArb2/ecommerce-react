@@ -9,7 +9,8 @@ const Logout = ({ closeModal }) => {
   const dispatch = useDispatch()
 
   return (
-    <div>
+    <div className={styles.logoutContainer}>
+      <img src="./images/logoutIllus.png" alt="" />
       <h1 className={styles.logoutTitle}>Welcome {name}!</h1>
       <button
         className={styles.btnLogout}

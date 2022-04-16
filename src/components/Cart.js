@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProduct, emptyCart, purchaseCart } from '../redux/actionCreators'
 import styles from '../styles/Cart.module.css'
+import { BsTrash } from 'react-icons/bs';
 
 const Cart = ({setIsLogin}) => {
   const dispatch = useDispatch()
@@ -33,34 +34,46 @@ const Cart = ({setIsLogin}) => {
   }, [cart])
 
   return (
-    <div>
-      
+    <div >
+      <h1 className={styles.cartTitle}>Cart</h1>
       {
         localStorage.getItem('token') ?
-          <div>
-            <h1>Cart</h1>
+          <div className={styles.cartWrapper}>
             {
-                cart?.products?.map(prod => (
-                  <div key={prod.id}>
-                    <p >{prod.title}</p>
-                    <p>{prod.productsInCart.quantity}</p>
-                    <button onClick={()=>handleDelete(prod.id)}>Delete</button>
-                  </div>
-              ))
-            }
-            {emptyCartMsg}
-            <div>
-              <button onClick={handleCheckout}>Checkout</button>
+            cart?.products?.map(prod => (
+            <div key={prod.id} className={styles.productContainer}>
+              <div>
+                <p className={styles.productTitle}>{prod.title}</p>
+                <p> <span className={styles.productTag}>Quantity:</span> {prod.productsInCart.quantity}</p>
+                <p> <span className={styles.productTag}>Price:</span> $ {prod.price}</p>
+              </div>
+              <button
+                  onClick={() => handleDelete(prod.id)}
+                className={styles.btnDelete}>
+                  <BsTrash/>
+              </button>
             </div>
+            ))
+            }
+            <div>
+              <h2>total</h2>
+            </div>
+              <button
+              onClick={handleCheckout}
+              className={styles.btnCheckout}
+              >Checkout
+              </button>
+            {emptyCartMsg}
           </div>
         :
         <div className={styles.cartWrapper}>
           <img src='./images/cartIllus.png' alt="" />
-          <h1 className={styles.cartTitle}>Cart</h1>
+          
           <h3>In order to add producst to the cart please Login</h3>
           <button onClick={()=> setIsLogin(true)} className={styles.loginButton}>Login</button>
         </div>
       }
+      
     </div>
   )
 }
