@@ -1,18 +1,11 @@
 
-.cartWrapper{
-  text-align: center;
-  position: relative;
+.containerCart{
   overflow: auto;
-  max-height: 600px;
+  width: 100%;
 }
 
-.cartTitle{
-  color: #f85555;
-  margin-bottom: 2rem;
-  position: absolute;
-  top: 3rem;
-  left: 50%;
-  transform: translateX(-50%);
+.cartWrapperLogin{
+  text-align: center;
 }
 
 .loginButton{
@@ -26,6 +19,29 @@
   cursor: pointer;
   margin-block: 2rem;
 }
+
+.cartWrapperLogin p{
+  font-size: 1.3rem;
+}
+/* ---------------------------------------------------- */
+.cartWrapper{
+  text-align: center;
+  position: relative;
+  overflow: auto;
+  padding: 2rem;
+}
+
+.cartList{
+  height: 60vh;
+  overflow: auto;
+}
+
+.cartTitle{
+  color: #f85555;
+  text-align: center;
+  padding-top: 2rem;
+}
+
 .productContainer{
   margin-block: 1rem;
   text-align: left;
@@ -54,11 +70,8 @@
   font-size: 1.2rem;
 }
 .btnCheckout{
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
   width: 90%;
-  max-width: 200px;
+  max-width: 150px;
   background-color: #f85555;
   border: none;
   font-size: clamp(1rem, 5vw, 1.5rem);
@@ -66,4 +79,20 @@
   color: white;
   cursor: pointer;
   margin-block: 0.5rem;
+}
+
+.totalContainter{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total{
+  color: gray;
+}
+
+.notProducts{
+  display: grid;
+  place-content: center;
+  height: 100%;
 }

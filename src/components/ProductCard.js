@@ -7,9 +7,13 @@ import Cart from './Cart';
 import Login from './Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, getCart } from '../redux/actionCreators';
+import SignUp from './SignUp';
+import Logout from './Logout';
 
 const ProductCard = ({productInfo, path}) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [isLogin, setIsLogin] = useState(false)
+  const [signUp, setSignUp] = useState(false)
   const cart = useSelector(state => state.cart)
   const dispatch = useDispatch()
   
@@ -18,7 +22,9 @@ const ProductCard = ({productInfo, path}) => {
       id: productInfo.id,
       quantity: 1
     }
-    if(!localStorage.getItem('token')) setIsOpen(true)
+    if (!localStorage.getItem('token')) {
+      setIsOpen(true)
+    }
     if (localStorage.getItem('token') && !cart.products?.some(el => el.id === productInfo.id)) {
       dispatch(addToCart(productCart))
       dispatch(getCart())
@@ -50,12 +56,23 @@ const ProductCard = ({productInfo, path}) => {
       </div>
       <Modal
         closeModal={setIsOpen}
+        setSignUp={setSignUp}
+        setIsLogin={setIsLogin}
         isOpen={isOpen}>
-        {
+        {isLogin ?
           localStorage.getItem('token') ?
-            <Cart /> :
-            <Login closeModal={setIsOpen}/>
-        }
+            <Logout closeModal={setIsOpen}/> :
+            <Login
+              closeModal={setIsOpen}
+              setSignUp={setSignUp}
+              setIsLogin={setIsLogin}/>
+          : signUp ?
+            <SignUp
+              closeModal={setIsOpen}
+              setSignUp={setSignUp}
+              setIsLogin={setIsLogin}/> 
+            :
+            <Cart setIsLogin={setIsLogin} />}
       </Modal>
     </>
   )

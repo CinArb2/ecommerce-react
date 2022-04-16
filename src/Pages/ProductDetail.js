@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
-import { setSelectedProduct, fetchRelatedProducts, removeProductSelected } from '../redux/actionCreators'
+import { fetchRelatedProducts, fetchSelectedProduct, fetchCategories } from '../redux/actionCreators'
 import style from '../styles/ProductDetail.module.css'
 import CarouselProduct from '../components/CarouselProduct'
 import ProductInfo from '../components/ProductInfo'
@@ -10,23 +10,22 @@ import { Link } from 'react-router-dom'
 import { MdOutlineDoubleArrow } from 'react-icons/md';
 
 const ProductDetail = () => {
-  const products = useSelector(state => state.products)
   const selectedProduct = useSelector(state => state.selectedProduct)
   const relatedProd = useSelector(state => state.relatedProd)
+  const categories = useSelector(state => state.categories)
   const { id } = useParams()
   const dispatch = useDispatch()
+  
+  useEffect(() => {
+    dispatch(fetchCategories())
+    dispatch(fetchSelectedProduct(id))
+  }, [dispatch, id, selectedProduct.category])
 
   useEffect(() => {
-    const productSelected = products.find(el => el.id === id * 1)
-    dispatch(setSelectedProduct(productSelected))
-    if (productSelected) {
-      dispatch(fetchRelatedProducts(productSelected?.category?.id))
-    }
-    return () => {
-      dispatch(removeProductSelected())
-    }
-  }, [id, products, dispatch])
-  
+    const idSelected = categories.find(el => el.name === selectedProduct.category)?.id
+    dispatch(fetchRelatedProducts(idSelected))
+  }, [dispatch, categories, selectedProduct.category])
+
   return (
     <div className={style.productDetailWrapper}>
       <Link to='/' className={style.breadcrumbLink}>Home</Link>
@@ -42,11 +41,9 @@ const ProductDetail = () => {
       </div>
       <h2 className={style.subheading}>Discover similar products</h2>
       <div className={style.relatedProducts}>
-        {
-          relatedProd.map(product => (
+        {relatedProd.map(product => (
             <ProductCard key={product.id} productInfo={product} path={'/product/'}/>
-          ))
-        }
+          )) }
       </div>
     </div>
   )

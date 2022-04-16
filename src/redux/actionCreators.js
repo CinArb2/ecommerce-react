@@ -11,13 +11,22 @@ export const fetchProducts = () => {
   }
 }
 
+export const fetchSelectedProduct = (id) => {
+  return async (dispatch) => {
+    dispatch(setIsLoading(true))
+    const response = await axios.get(`https://ecommerce-api-react.herokuapp.com/api/v1/products/${id}`)
+    dispatch(setSelectedProduct(response.data.data.product))
+    dispatch(setIsLoading(false))
+  }
+}
+
 export const fetchRelatedProducts = (id) => {
   
   return async (dispatch) => {
-    dispatch(setIsLoading(true))
+    // dispatch(setIsLoading(true))
     const response = await axios.get(`https://ecommerce-api-react.herokuapp.com/api/v1/products?category=${id}`)
     dispatch(getRelatedProducts(response.data.data.products))
-    dispatch(setIsLoading(false))
+    // dispatch(setIsLoading(false))
   }
 }
 
@@ -53,6 +62,7 @@ export const getCart = ( ) => {
       .catch(error => {
         if (error.response.status === 404) {
           dispatch(cleanInfoCart())
+          console.clear()
         }
       })
   }
@@ -63,7 +73,6 @@ export const addToCart = (product) => {
     dispatch(setIsLoading(true))
     return axios.post(`https://ecommerce-api-react.herokuapp.com/api/v1/cart`, product, getConfig())
       .then(() => dispatch(getCart()))
-      .catch((error) =>  console.log(error.response))
       .finally(()=> dispatch(setIsLoading(false)))
   }
 }

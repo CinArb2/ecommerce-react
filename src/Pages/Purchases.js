@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { getConfig } from '../helper/getConfig'
+import PurchaseDetail from '../components/PurchaseDetail'
+import styles from '../styles/Purchases.module.css'
 
 const Purchases = () => {
   const [purchasesData, setPurchasesData] = useState([])
-  const products = purchasesData?.filter(el => el.cart.products.length)
   
   useEffect(() => {
     axios.get('https://ecommerce-api-react.herokuapp.com/api/v1/purchases', getConfig())
     .then(resp =>  setPurchasesData(resp.data.data.purchases))
   }, [])
+
+  const listPurchases = purchasesData.filter(el => el.cart.products.some(q=> q.productsInCart.quantity > 0))
   
   return (
-    <div>
-      <h1>Purchases</h1>
-      {
-        products.map(prod => (
-          <h3 key={prod.cart.id}>{prod.cart.products[0].title}</h3>
+    <div className={styles.purchasesContainer}>
+      <h1 className={styles.purchasesTitle}>Purchases</h1>
+      <div >
+        {
+        listPurchases.map(purchase => (
+          <PurchaseDetail key={purchase.id} purchase={purchase}/>
         ))
-      }
+       }
+      </div>
     </div>
   )
 }

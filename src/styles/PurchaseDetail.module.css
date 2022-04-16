@@ -1,0 +1,40 @@
+.purchaseDetailContainer{
+  padding-block: 1rem;
+  border: 1px solid rgb(146, 146, 146);
+  margin-block: 2rem;
+  border-radius: 10px;
+}
+
+.productDetailContainer{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.prodPurchaseTitle{
+  color: #f85555;
+  margin-bottom: 1rem;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #929292;
+  padding-inline: 1rem;
+}
+
+.date{
+  color: #929292;
+}
+
+.purchaseList{
+  padding: 1rem;
+  max-width: 900px;
+}
+
+.purchaseList p{
+  margin-block: 0.5rem;
+}
+
+.purchaseListTitle{
+  color: #f85555;
+}

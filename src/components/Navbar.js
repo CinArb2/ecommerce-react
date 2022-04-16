@@ -14,6 +14,7 @@ const Navbar = () => {
   const [isLogin, setIsLogin] = useState(false)
   const [signUp, setSignUp] = useState(false)
   const token = useSelector(state => state.token)
+  const cart = useSelector(state => state.cart)
 
   const handleLoginBtn = () => {
     setIsOpen(true)
@@ -40,6 +41,8 @@ const Navbar = () => {
     }
   }, [token])
 
+  const totalQuantityCart = cart.products?.reduce((prev, curr)=>prev + curr.productsInCart.quantity,0)
+
   return (
     <>
       <nav className={style.navBar}>
@@ -61,11 +64,14 @@ const Navbar = () => {
             <button className={style.navbarBtn} onClick={handleCartBtn}>
               <BsCart2 />
             </button>
+            <div className={style.navbarQuantity}>{totalQuantityCart ? totalQuantityCart : '0'}</div>
           </li>
         </ul>
       </nav>
       <Modal
         closeModal={setIsOpen}
+        setSignUp={setSignUp}
+        setIsLogin={setIsLogin}
         isOpen={isOpen}>
         {isLogin ?
           localStorage.getItem('token') ?

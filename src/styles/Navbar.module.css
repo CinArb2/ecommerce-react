@@ -15,6 +15,9 @@
   color: #f85555;
 }
 
+.navBar li{
+  position: relative;
+}
 
 .navbarList{
   font-size: 1.8rem;
@@ -31,3 +34,13 @@
   color: black;
 }
 
+.navbarQuantity{
+  position: absolute;
+  padding: 0.3rem 0.4rem;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  top: -10px;
+  right: -9px;
+  font-size: 0.9rem;
+}
