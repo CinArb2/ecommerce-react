@@ -19,17 +19,15 @@ function ProductInfo({ selectedProduct }) {
   }
 
   const handleCartBtn = () => {
-    //here we validate if product is already on cart
+    
     if (!localStorage.getItem('token')) return
     if (cart.products?.some(el => el.id === selectedProduct.id)) {
-      // if true, patch request
       const bodyRequest = {
       id: selectedProduct.id,
       newQuantity: counter,
       }
       dispatch(updateCart(bodyRequest))
     } else {
-      //false, post
       const bodyRequest = {
       id: selectedProduct.id,
       quantity: counter,

@@ -10,7 +10,30 @@
   radial-gradient(at 28% 45%, hsl(240deg 100% 73% / 31%) 0px, transparent 50%),
   radial-gradient(at 0% 98%, hsl(343deg 25% 31% / 81%) 0px, transparent 50%);
   color: white;
-  font-size: 2rem;
   padding-inline: 1rem;
   line-height: 1.5;
+}
+
+.text{
+  font-size: clamp(1em, 2vw, 2em);
+}
+
+.containerImg{
+  width: 50%;
+}
+
+
+@media screen and (max-width: 700px){
+  .containerHero{
+    display: block;
+  }
+
+  .text{
+    text-align: center;
+    padding-top: 2rem;
+  }
+
+  .containerImg{
+  width: 100%; 
+  }
 }

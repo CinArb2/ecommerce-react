@@ -25,7 +25,7 @@ const CarouselProduct = ({ selectedProduct }) => {
       fade: true,
       dots: true,
       dotsClass: "slick-dots slick-thumb",
-    };
+  };
 
   
   return (
