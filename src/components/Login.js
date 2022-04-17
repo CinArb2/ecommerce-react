@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import styles from '../styles/Login.module.css'
 import axios from 'axios'
+import { useDispatch} from 'react-redux'
+import { setIsLoading } from '../redux/actionCreators'
+import { MdEmail } from 'react-icons/md';
+import { RiLockPasswordFill } from 'react-icons/ri';
 
 const Login = ({closeModal, setSignUp, setIsLogin}) => {
   const [formData, setFormData] = useState({
@@ -8,7 +12,7 @@ const Login = ({closeModal, setSignUp, setIsLogin}) => {
     password: '',
   })
   const [loginError, setLoginError] = useState('')
-  
+  const dispatch = useDispatch()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,6 +27,7 @@ const Login = ({closeModal, setSignUp, setIsLogin}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    dispatch(setIsLoading(true))
     axios.post('https://ecommerce-api-react.herokuapp.com/api/v1/users/login', formData)
       .then(resp => {
         localStorage.setItem('token', resp.data.data.token)
@@ -35,12 +40,20 @@ const Login = ({closeModal, setSignUp, setIsLogin}) => {
           setLoginError(error.response.data.message)
         }
       })
+      .finally(()=> dispatch(setIsLoading(false)))
   }
   
   return (
     <div className={styles.loginContainer}>
       <img src='./images/login.png' alt="" />
       <h1 className={styles.loginTitle}>Login</h1>
+      <div className={styles.testData}>
+        <h3>Test data</h3>
+        <p> <span className={styles.icon}><MdEmail/></span>
+          Louie@gmail.com</p>
+        <p> <span className={styles.icon}> <RiLockPasswordFill/></span>
+          test1234</p>
+      </div>
       <form onSubmit={handleSubmit}>
         <label className={styles.inputLabel}>Email</label>
         <input
@@ -59,7 +72,7 @@ const Login = ({closeModal, setSignUp, setIsLogin}) => {
           onChange={handleChange}
         />
         <button className={styles.loginButton}>Login</button>
-        {loginError && <p>{ loginError}</p>}
+        {loginError && <p className={styles.messageError}>{ loginError}</p>}
         <p>Don't have an account?
           <span
             className={styles.btnRedirect}

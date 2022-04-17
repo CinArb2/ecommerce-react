@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import styles from '../styles/SignUp.module.css'
 import axios from 'axios'
+import { useDispatch} from 'react-redux'
+import { setIsLoading } from '../redux/actionCreators'
 
 const SignUp = ({ closeModal, setSignUp, setIsLogin }) => {
   const [formData, setFormData] = useState({
@@ -12,6 +14,7 @@ const SignUp = ({ closeModal, setSignUp, setIsLogin }) => {
     role: ''
   })
   const [signUpError, setSignUpError] = useState('')
+  const dispatch = useDispatch()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,6 +29,7 @@ const SignUp = ({ closeModal, setSignUp, setIsLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    dispatch(setIsLoading(true))
     axios.post('https://ecommerce-api-react.herokuapp.com/api/v1/users', formData)
       .then(() => {
         setSignUpError('')
@@ -37,6 +41,7 @@ const SignUp = ({ closeModal, setSignUp, setIsLogin }) => {
           setSignUpError(error.response.data.message)
         }
       })
+      .finally(()=> dispatch(setIsLoading(false)))
   }
 
   return (
@@ -86,7 +91,7 @@ const SignUp = ({ closeModal, setSignUp, setIsLogin }) => {
         <button
           className={styles.signUpButton}
           >Sign Up</button>
-        {signUpError && <p> { signUpError} </p>}
+        {signUpError && <p className={styles.messageError}> { signUpError} </p>}
         <p>Already have an account?
           <span
             className={styles.btnRedirect}

@@ -46,3 +46,30 @@
   cursor: pointer;
   padding-inline: 1rem;
 }
+
+.messageError{
+  margin-block: 1rem;
+  background-color: #ffd9d9;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border-left: 9px solid red;
+}
+
+.testData{
+  background-color: rgb(33 150 243 / 30%);
+  border-radius: 10px;
+  font-size: 1.2rem;
+  padding: 1rem;
+}
+
+.icon{
+  padding-right: 1rem;
+}
+
+.testData p{
+  margin-block: 0.5rem;
+}
+
+.testData h3{
+  text-align: center;
+}

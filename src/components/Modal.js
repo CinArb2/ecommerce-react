@@ -15,7 +15,6 @@ const Modal = ({ closeModal,
         onClick={() => {
           closeModal(false);
           setSignUp(false);
-          setIsLogin(false);
         }}
       ></div>
       <div className={`${styles.modalWrapper} ${isOpen ? styles.active : ''}`}>

@@ -46,3 +46,12 @@
   cursor: pointer;
   padding-inline: 1rem;
 }
+
+.messageError{
+  margin-block: 1rem;
+  background-color: #ffd9d9;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border-left: 9px solid red;
+}
+
