@@ -1,22 +1,24 @@
 import React, { useState } from 'react'
 import { BsSearch } from 'react-icons/bs';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { fetchProductQuery } from '../redux/actionCreators';
 import styles from '../styles/SearchBar.module.css'
 
 const SearchBar = () => {
   const dispatch = useDispatch()
   const [data, setData] = useState('')
-  const products = useSelector(state => state.products)
+  const navigate = useNavigate()
   
   const handleSubmit = (e) => {
     e.preventDefault()
-    const formData = data[0].toUpperCase() + data.substring(1)
+    navigate('/')
+    const lowerCase = data.toLowerCase()
+    const formData = lowerCase[0].toUpperCase() + data.substring(1)
     dispatch(fetchProductQuery(formData))
   }
 
   return (
-    <>
     <form onSubmit={handleSubmit} className={styles.form}>
       <input
         className={styles.formInput}
@@ -29,11 +31,6 @@ const SearchBar = () => {
         <BsSearch/>
       </button>
     </form>
-      {products.length === 0 &&
-        <h3
-          className={styles.errorMessage}
-        >Product not found... try again</h3>}
-    </>
   )
 }
 

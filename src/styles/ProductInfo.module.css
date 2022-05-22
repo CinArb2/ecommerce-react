@@ -61,6 +61,17 @@
   max-width: 400px;
 }
 
+.btnCart:hover{
+  background-color: #f59c9c;
+}
+
+.messageError{
+  margin-block: 1rem;
+  background-color: #ffd9d9;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border-left: 9px solid red;
+}
 
 
 @media screen and (max-width: 550px){

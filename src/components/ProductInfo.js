@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, updateCart } from '../redux/actionCreators'
 import styles from '../styles/ProductInfo.module.css'
@@ -7,6 +7,11 @@ function ProductInfo({ selectedProduct }) {
   const [counter, setCounter] = useState(1)
   const cart = useSelector(state => state.cart)
   const dispatch = useDispatch()
+  const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    setCounter(1)
+  }, [])
 
   const addCounter = () => {
     setCounter(prev => prev + 1)
@@ -19,22 +24,26 @@ function ProductInfo({ selectedProduct }) {
   }
 
   const handleCartBtn = () => {
-    
-    if (!localStorage.getItem('token')) return
+    if (!localStorage.getItem('token')) {
+      return setMessage('Please Login in order to add products to the cart')
+    }
     if (cart.products?.some(el => el.id === selectedProduct.id)) {
       const bodyRequest = {
       id: selectedProduct.id,
       newQuantity: counter,
       }
       dispatch(updateCart(bodyRequest))
+      setCounter(1)
     } else {
       const bodyRequest = {
       id: selectedProduct.id,
       quantity: counter,
       }
       dispatch(addToCart(bodyRequest))
+      setCounter(1)
     }
   }
+
 
   return (
     <div className={styles.productContainer}>
@@ -58,6 +67,7 @@ function ProductInfo({ selectedProduct }) {
       >
         Add to cart
       </button>
+      {message && <p className={styles.messageError}>{message}</p>}
     </div>
   )
 }

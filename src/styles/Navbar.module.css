@@ -47,3 +47,23 @@
   right: -9px;
   font-size: 0.9rem;
 }
+
+@media screen and (max-width: 650px){
+  .navBar{
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: 1fr 1fr;
+    padding: 1rem;
+  }
+  .logo{
+    grid-area: 1 / 1 / span 1 / span 2;
+  }
+  .navbarList{
+    grid-area: 2 / 4 / span 1 / span 3;
+    margin-top: 1rem;
+  }
+  .navbarList{
+    gap: 3vw;
+    justify-content: space-between;
+  }
+}

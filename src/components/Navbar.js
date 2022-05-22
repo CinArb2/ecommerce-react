@@ -8,6 +8,7 @@ import Cart from './Cart';
 import { useSelector } from 'react-redux';
 import Logout from './Logout';
 import SignUp from './SignUp';
+import SearchBar from './SearchBar';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -47,6 +48,7 @@ const Navbar = () => {
     <>
       <nav className={style.navBar}>
         <NavLink to='/' className={style.logo}>iBuy</NavLink>
+        <SearchBar className={style.searchBar}/>
         <ul className={style.navbarList}>
           <li>
             <button  className={style.navbarBtn} onClick={handleLoginBtn}>

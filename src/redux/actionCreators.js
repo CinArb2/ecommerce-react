@@ -23,10 +23,8 @@ export const fetchSelectedProduct = (id) => {
 export const fetchRelatedProducts = (id) => {
   
   return async (dispatch) => {
-    // dispatch(setIsLoading(true))
     const response = await axios.get(`https://ecommerce-api-react.herokuapp.com/api/v1/products?category=${id}`)
     dispatch(getRelatedProducts(response.data.data.products))
-    // dispatch(setIsLoading(false))
   }
 }
 

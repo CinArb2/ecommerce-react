@@ -2,6 +2,11 @@
   border: 1px solid rgb(193, 190, 190);
   border-radius: 10px;
   position: relative;
+  transition: transform 200ms ease-in-out;
+}
+
+.cardWrapper:hover{
+  transform: scale(1.02);
 }
 
 .cardImage{
@@ -38,6 +43,10 @@
   bottom: 20px;
   right: 20px;
   cursor: pointer;
+}
+
+.cardButton:hover{
+  background-color: #f59c9c;
 }
 
 .cardTitle{

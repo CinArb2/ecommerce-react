@@ -5,9 +5,8 @@
   right: 0;
   left: 0;
   background-color: #ffffffcf;
-  z-index: 3;
   visibility: hidden;
-  z-index: 1;
+  z-index: 2;
 }
 
 .modalBackdrop.active{
@@ -26,9 +25,9 @@
   border-left: 1px solid #dbdbdb;
   transform: translateX(100%);
   transition: transform 300ms ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow-y: scroll;
+  display: grid;
+  place-content: center;
 }
 
 .modalWrapper.active{
@@ -41,6 +40,7 @@
   right: 1rem;
   font-size: 2rem;
   cursor: pointer;
+  z-index: 100;
 }
 
 @media screen and (max-width: 800px){
