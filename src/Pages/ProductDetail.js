@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
-import { fetchRelatedProducts, fetchSelectedProduct, fetchCategories } from '../redux/actionCreators'
+import {
+  fetchRelatedProducts,
+  fetchSelectedProduct,
+  fetchCategories,
+  cleanProductSelected
+} from '../redux/actionCreators'
 import style from '../styles/ProductDetail.module.css'
 import CarouselProduct from '../components/CarouselProduct'
 import ProductInfo from '../components/ProductInfo'
@@ -17,14 +22,20 @@ const ProductDetail = () => {
   const dispatch = useDispatch()
   
   useEffect(() => {
-    dispatch(fetchCategories())
     dispatch(fetchSelectedProduct(id))
   }, [dispatch, id, selectedProduct.category])
 
   useEffect(() => {
     const idSelected = categories.find(el => el.name === selectedProduct.category)?.id
+    console.log(idSelected)
     dispatch(fetchRelatedProducts(idSelected))
   }, [dispatch, categories, selectedProduct.category])
+
+  useEffect(() => {
+    return () => {
+      dispatch(cleanProductSelected())
+    };
+  }, [dispatch]);
 
   return (
     <div className={style.productDetailWrapper}>
