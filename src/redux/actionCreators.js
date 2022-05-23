@@ -174,9 +174,3 @@ export const cleanInfoCart = () => {
   }
 }
 
-export const cleanProductSelected = () => {
-  return {
-    type: actions.CLEAN_PRODUCT_SELECTED,
-    payload: {}
-  }
-}

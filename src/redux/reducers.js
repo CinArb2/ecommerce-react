@@ -56,11 +56,6 @@ export const productReducer = (state = initialState, action) => {
         ...state,
         cart: action.payload
       };
-    case actions.CLEAN_PRODUCT_SELECTED:
-      return {
-        ...state,
-        cart: action.payload
-      };
     default:
       return state;
   }

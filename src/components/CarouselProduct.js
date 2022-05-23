@@ -5,9 +5,11 @@ import {FaChevronLeft, FaChevronRight} from 'react-icons/fa'
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import style from '../styles/CarouselProduct.module.css'
+import { useSelector } from 'react-redux';
 
 
-const CarouselProduct = ({ selectedProduct }) => {
+const CarouselProduct = () => {
+  const selectedProduct = useSelector(state => state.selectedProduct)
   const [sliderRef, setSliderRef] = useState(null)
 
   const settings = {
