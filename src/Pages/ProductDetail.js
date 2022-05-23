@@ -22,7 +22,6 @@ const ProductDetail = () => {
   }, [dispatch, id])
 
   useEffect(() => {
-    console.log(categories);
     const idSelected = categories.find(el => el.name === selectedProduct.category)?.id
     if (idSelected) {
       dispatch(fetchRelatedProducts(idSelected))
@@ -31,22 +30,23 @@ const ProductDetail = () => {
 
   useEffect(() => {
     return () => {
-      console.log('clean')
       dispatch(removeProductSelected())
     }
   }, [dispatch])
 
   return (
     <div className={style.productDetailWrapper}>
-      <Link to='/' className={style.breadcrumbLink}>Home</Link>
-      <span className={style.separator}><MdOutlineDoubleArrow/></span>
-      <span className={style.breadcrumb}>{selectedProduct?.title}</span>
+      <div className={style.breadcrumWrapper}>
+        <Link to='/' className={style.breadcrumbLink}>Home</Link>
+        <span className={style.separator}><MdOutlineDoubleArrow/></span>
+        <span className={style.breadcrumb}>{selectedProduct?.title}</span>
+      </div>
       <div className={style.productDescription}>
         <div className={style.carouselContainer}>
           <CarouselProduct />
         </div>
         <div className={style.ProductInfo}>
-          <ProductInfo selectedProduct={selectedProduct}/>
+          <ProductInfo />
         </div>
       </div>
       <h2 className={style.subheading}>Discover similar products</h2>

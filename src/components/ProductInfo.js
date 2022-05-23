@@ -3,15 +3,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, updateCart } from '../redux/actionCreators'
 import styles from '../styles/ProductInfo.module.css'
 
-function ProductInfo({ selectedProduct }) {
+function ProductInfo() {
   const [counter, setCounter] = useState(1)
   const cart = useSelector(state => state.cart)
+  const selectedProduct = useSelector(state => state.selectedProduct)
   const dispatch = useDispatch()
   const [message, setMessage] = useState('')
 
   useEffect(() => {
     setCounter(1)
-  }, [])
+  }, [selectedProduct])
 
   const addCounter = () => {
     setCounter(prev => prev + 1)
