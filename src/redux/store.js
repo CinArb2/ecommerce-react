@@ -1,10 +1,11 @@
 import { createStore, applyMiddleware } from 'redux'
-import {productReducer} from './reducers'
+// import {productReducer} from './reducers'
 import  thunk  from 'redux-thunk'
 import { composeWithDevTools } from '@redux-devtools/extension';
+import rootReducer from './rootReducers';
 
 const store = createStore(
-  productReducer,
+  rootReducer,
   composeWithDevTools(applyMiddleware(thunk))
 )
 

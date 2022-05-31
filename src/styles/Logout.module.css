@@ -16,6 +16,113 @@
 }
 
 .logoutTitle{
-  color: #f85555;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+.imgContainer{
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 1px solid gray;
+  overflow: hidden;
+  margin-block: 2rem;
+}
+
+.form{
+  margin-block: 1rem;
+  text-align: left;
+}
+
+.form > * {
+  margin-block: 0.5rem;
+}
+.inputLabel{
+  margin-right: 1rem;
+}
+
+.formContainer{
+  display: none;
+}
+
+.formContainer.show{
+  display: block;
+  background-color: var(--dark-gray);
+  border-radius: 20px;
+  padding: 1rem;
+}
+
+.wrapperBtns{
+  margin-top: 3rem;
+}
+
+.btn{
+  margin: 0.7rem auto;
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 50px;
+  padding-block: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  letter-spacing: 1.2px;
+  color: inherit;
+  padding-left: 1rem;
+  display: block;
+  width: 200px;
+}
+
+.btn:hover{
+  background-color: var(--gray-hover);
+  border-radius: 50px;
+}
+
+.iconBtn{
+  margin-right: 0.5rem;
+}
+
+.inputContainer{
+  margin-block: 0.5rem;
+  text-align: center;
+}
+
+.inputContainer input{
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 50px;
+  padding-inline: 0.5rem;
+  color: inherit;
+  width: 250px;
+  margin-top: 0.5rem;
+}
+
+.inputImg{
+  display: none;
+}
+
+.labelImginput{
+  cursor: pointer;
+}
+
+.labelTextImg{
+  display: block;
+}
+
+.iconImg{
+  font-size: 3rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  border: 1px solid var(--color-text);
+}
+
+.btnSubmit{
+  width: 100px;
+  background-color: var(--btn-color);
+}
+
+.btnCancel{
+  background-color: var(--btn-selected);
+  width: 100px;
 }

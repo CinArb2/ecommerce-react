@@ -1,0 +1,75 @@
+.wrapperShopManager{
+  width: 95%;
+  margin: 2rem auto;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  min-height: 80vh;
+}
+
+.shopManagerControl{
+  padding: 1rem;
+  min-width: 300px;
+}
+
+.shopMagHeader{
+  text-align: center;
+}
+
+.avatarImgContainer{
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.headerTextContainer{
+  align-self: center;
+}
+
+.headerTextContainer h1{
+  margin-bottom: 1rem;
+}
+
+.shopManagerEditor{
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  margin-top: 2rem;
+}
+
+.containerViews{
+  background-color: var(--gray-hover);
+  border-radius: 30px;
+  padding: 2rem;
+}
+
+.shopManagerBtns{
+  border-radius: 20px;
+  text-align: center;
+  margin-block: 3rem;
+}
+
+.iconBtns{
+  font-size: 1.3rem;
+}
+
+.linkManager{
+  color: inherit;
+  padding-block: 0.8rem;
+  display: flex;
+  border-radius: 50px;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  margin-block: 0.1rem;
+}
+
+.linkManager:hover{
+  background-color: var(--gray-hover);
+}
+
+.linkManager.active{
+  background-color: var(--gray-hover);
+}

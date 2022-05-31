@@ -28,27 +28,27 @@
 
 .btn{
   position: absolute;
-  background-color: #f85555;
-  color: white;
-  padding: 1rem;
-  border: none;
+  background-color: var(--btn-color);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: 0.5rem;
   border-radius: 50%;
   cursor: pointer;
   z-index: 1;
 }
 
 .btn:hover{
-  background-color: #f59c9c;
+  background-color: var(--btn-hover);
 }
 
 .btn.left{
-  left: 20px;
-  top: 50%;
+  left: 40px;
+  bottom: 7%;
 }
 
 .btn.right{
-  right: 20px;
-  top: 50%;
+  right: 40px;
+  bottom: 7%;
 }
 
 

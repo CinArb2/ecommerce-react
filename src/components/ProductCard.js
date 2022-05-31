@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import style from '../styles/ProductCard.module.css'
-import { BsCart2 } from 'react-icons/bs';
+import { CgArrowLongRight } from 'react-icons/cg';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
 import Cart from './Cart';
 import Login from './Login';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, getCart } from '../redux/actionCreators';
+import { addToCart, getCart } from '../redux/cart/cartActionCreators';
 import SignUp from './SignUp';
 import Logout from './Logout';
 
@@ -14,21 +14,13 @@ const ProductCard = ({productInfo, path}) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isLogin, setIsLogin] = useState(false)
   const [signUp, setSignUp] = useState(false)
-  const cart = useSelector(state => state.cart)
-  const dispatch = useDispatch()
+  // const cart = useSelector(state => state.cart)
+  // const dispatch = useDispatch()
   
   const handleModalBtn = () => {
-    const productCart = {
-      id: productInfo.id,
-      quantity: 1
-    }
     if (!localStorage.getItem('token')) {
       setIsOpen(true)
     }
-    if (localStorage.getItem('token') && !cart.products?.some(el => el.id === productInfo.id)) {
-      dispatch(addToCart(productCart))
-      dispatch(getCart())
-    } 
   }
 
   const handleScroll = () => {
@@ -40,19 +32,21 @@ const ProductCard = ({productInfo, path}) => {
       <div className={style.cardWrapper}>
         <Link to={`${path}${productInfo.id}`} className={style.linkCard} onClick={handleScroll}>
           <div className={style.cardImage}>
-          <img src={productInfo.productImgs[0]} alt="product" />
+            <img src={productInfo.productImgs[0].imgUrl} alt="product" />
           </div>
           <div className={style.cardBody}>
-            <h3 className={style.cardTitle}>{productInfo.title}</h3>
-            <p className={style.price}>Price</p>
-            <span className={style.cardPrice}>$ {productInfo.price}</span>
+            <div className={style.cardHeader}>
+              <h3 className={style.cardTitle}>{productInfo.title}</h3>
+              <span className={style.cardPrice}>$ {productInfo.price}</span>
+            </div>
           </div>
         </Link>
-        <button
-          className={style.cardButton}
-          onClick={handleModalBtn}>
-          <BsCart2 className={style.cardIcon}/>
-        </button>
+          <button
+            className={style.cardButton}
+            onClick={handleModalBtn}>
+            <span>Buy now</span>
+            <CgArrowLongRight className={style.cardIcon}/>
+          </button>
       </div>
       <Modal
         closeModal={setIsOpen}

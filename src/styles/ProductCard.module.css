@@ -1,8 +1,9 @@
 .cardWrapper{
-  border: 1px solid rgb(193, 190, 190);
-  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
   position: relative;
   transition: transform 200ms ease-in-out;
+  overflow: hidden;
 }
 
 .cardWrapper:hover{
@@ -10,18 +11,23 @@
 }
 
 .cardImage{
-  padding: 2rem;
-  border-bottom: 1px solid  rgb(193, 190, 190);
+  margin: 0.5rem auto;
+  height: 350px;
+  overflow: hidden;
+  width: 95%;
+  border-radius: 8px;
+  border: 1px solid var(--gray);
 }
 
 .cardImage img{
-  height: 250px;
-  object-fit: contain;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
   margin: 0 auto;
 }
 
 .cardBody{
-  padding: 1rem;
+  padding: 0 1rem 1rem;
   position: relative;
 }
 
@@ -29,29 +35,36 @@
   margin-block: 1rem;
 }
 
+.cardHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .cardIcon{
-  font-size: 2rem;
-  color: white;
+  font-size: 1.5rem;
 }
 
 .cardButton{
-  padding: 0.8rem;
-  position: absolute;
-  background-color: #f85555;
-  border: none;
-  border-radius: 50%;
+  background-color: var(--btn-color);
+  border: 1px solid var(--color-border);
+  padding: 0.7rem;
   bottom: 20px;
-  right: 20px;
+  left: 15px;
   cursor: pointer;
+  border-radius: 50px;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  position: absolute;
 }
 
 .cardButton:hover{
-  background-color: #f59c9c;
+  background-color: var(--btn-hover);
 }
 
 .cardTitle{
   letter-spacing: 1.5px;
-  text-align: center;
   font-size: 1.3rem;
 }
 
@@ -60,11 +73,16 @@
 }
 
 .linkCard{
-  color: black;
   display: block;
+  color: var(--color-text);
+  font-weight: 600;
+  padding-bottom: 3.5rem;
 }
 
 .cardPrice{
-  font-size: 1.4rem;
-  font-weight: bold;
+  color: var(--gray);
+  font-size: 0.9rem;
+  display: block;
+  min-width: 80px;
+  text-align: end;
 }

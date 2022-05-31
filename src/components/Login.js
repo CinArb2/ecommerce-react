@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import styles from '../styles/Login.module.css'
 import axios from 'axios'
 import { useDispatch} from 'react-redux'
-import { setIsLoading } from '../redux/actionCreators'
-import { MdEmail } from 'react-icons/md';
-import { RiLockPasswordFill } from 'react-icons/ri';
+import { setIsLoading } from '../redux/loader/loaderActionCreators'
 
 const Login = ({closeModal, setSignUp, setIsLogin}) => {
   const [formData, setFormData] = useState({
@@ -28,15 +26,16 @@ const Login = ({closeModal, setSignUp, setIsLogin}) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(setIsLoading(true))
-    axios.post('https://ecommerce-api-react.herokuapp.com/api/v1/users/login', formData)
+    
+    axios.post('http://localhost:3000/api/v1/users/login', formData)
       .then(resp => {
-        localStorage.setItem('token', resp.data.data.token)
-        localStorage.setItem('user', `${resp.data.data.user.firstName} ${resp.data.data.user.lastName}` )
+        localStorage.setItem('token', resp.data.token)
+        localStorage.setItem('user', `${resp.data.user.username}` )
         setLoginError('')
         closeModal(false)
       })
       .catch(error => {
-        if (error.response.status === 404) {
+        if (error.response.status === 400) {
           setLoginError(error.response.data.message)
         }
       })
@@ -47,13 +46,6 @@ const Login = ({closeModal, setSignUp, setIsLogin}) => {
     <div className={styles.loginContainer}>
       <img src='./images/login.png' alt="" />
       <h1 className={styles.loginTitle}>Login</h1>
-      <div className={styles.testData}>
-        <h3>Test data</h3>
-        <p> <span className={styles.icon}><MdEmail/></span>
-          Louie@gmail.com</p>
-        <p> <span className={styles.icon}> <RiLockPasswordFill/></span>
-          test1234</p>
-      </div>
       <form onSubmit={handleSubmit}>
         <label className={styles.inputLabel}>Email</label>
         <input
@@ -72,7 +64,9 @@ const Login = ({closeModal, setSignUp, setIsLogin}) => {
           onChange={handleChange}
         />
         <button className={styles.loginButton}>Login</button>
-        {loginError && <p className={styles.messageError}>{ loginError}</p>}
+
+        {loginError && <p className={styles.messageError}>{loginError}</p>}
+        
         <p>Don't have an account?
           <span
             className={styles.btnRedirect}

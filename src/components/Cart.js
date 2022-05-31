@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { deleteProduct, emptyCart, getCart, purchaseCart } from '../redux/actionCreators'
+import { deleteProduct, emptyCart, getCart, purchaseCart } from '../redux/cart/cartActionCreators'
 import styles from '../styles/Cart.module.css'
 import { BsTrash } from 'react-icons/bs';
 
@@ -30,9 +30,9 @@ const Cart = ({setIsLogin, setIsOpen}) => {
   const sum = cart.products?.reduce((prev, curr) => prev + curr.price * curr.productsInCart.quantity, 0)
   
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      dispatch(getCart())
-    }
+    // if (localStorage.getItem('token')) {
+    //   dispatch(getCart())
+    // }
   }, [dispatch])
   
   return (

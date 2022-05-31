@@ -1,20 +1,21 @@
 .form{
-  width: 1000px;
+  width: 100%;
   line-height: 0;
   display: flex;
-  font-size: 1.3rem;
+  font-size: 1rem;
   margin-inline: 1rem;
 }
 
 .btnForm{
-  background-color: #f85555;
-  font-size: 1.5rem;
-  color: white;
+  background-color: var(--btn-color);
+  font-size: 1.3rem;
+  color: var(--color-text);
   border: none;
   padding: 0.5rem 1rem;
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
   cursor: pointer;
+  border: 1px solid var(--gray);
 }
 
 .btnForm:hover{
@@ -24,11 +25,15 @@
 .formInput{
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
-  height: 48px;
+  height: 39px;
   width: 100%;
-  border: 1px solid rgb(193, 190, 190);
+  border: 1px solid var(--gray);
   padding-left: 1rem;
-  
+}
+
+.formInput::placeholder{
+  color: var(--gray);
+  font-size: 0.8rem;
 }
 
 .errorMessage{

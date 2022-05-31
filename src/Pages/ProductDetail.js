@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
-import {fetchRelatedProducts,fetchSelectedProduct, removeProductSelected, fetchCategories} from '../redux/actionCreators'
+import {fetchRelatedProducts,fetchSelectedProduct, removeProductSelected, fetchCategories} from '../redux/products/productActionCreators'
 import style from '../styles/ProductDetail.module.css'
 import CarouselProduct from '../components/CarouselProduct'
 import ProductInfo from '../components/ProductInfo'
@@ -10,9 +10,9 @@ import { Link } from 'react-router-dom'
 import { MdOutlineDoubleArrow } from 'react-icons/md';
 
 const ProductDetail = () => {
-  const selectedProduct = useSelector(state => state.selectedProduct)
-  const relatedProd = useSelector(state => state.relatedProd)
-  const categories = useSelector(state => state.categories)
+  const selectedProduct = useSelector(state => state.products.selectedProduct)
+  const relatedProd = useSelector(state => state.products.relatedProd)
+  const categories = useSelector(state => state.products.categories)
   const { id } = useParams()
   const dispatch = useDispatch()
   
@@ -22,11 +22,12 @@ const ProductDetail = () => {
   }, [dispatch, id])
 
   useEffect(() => {
-    const idSelected = categories.find(el => el.name === selectedProduct.category)?.id
+    const idSelected = categories.find(el => el.id === selectedProduct.categoryId)?.id
     if (idSelected) {
+      
       dispatch(fetchRelatedProducts(idSelected))
     }
-  }, [dispatch, categories, selectedProduct.category])
+  }, [dispatch, categories, selectedProduct.categoryId])
 
   useEffect(() => {
     return () => {

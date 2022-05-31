@@ -2,17 +2,16 @@ import React, { useState } from 'react'
 import styles from '../styles/SignUp.module.css'
 import axios from 'axios'
 import { useDispatch} from 'react-redux'
-import { setIsLoading } from '../redux/actionCreators'
+import { setIsLoading } from '../redux/loader/loaderActionCreators'
+import { BsFillImageFill } from 'react-icons/bs'
 
 const SignUp = ({ closeModal, setSignUp, setIsLogin }) => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    username: '',
     email: '',
     password: '',
-    phone: '',
-    role: ''
   })
+  const [selectedFile, setSelectedFile] = useState('');
   const [signUpError, setSignUpError] = useState('')
   const dispatch = useDispatch()
 
@@ -29,39 +28,51 @@ const SignUp = ({ closeModal, setSignUp, setIsLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    const API_URL = 'http://localhost:3000/api/v1'
+    const formDataObj = new FormData();
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    }
+
+    if (selectedFile)
+    formDataObj.append('avatarImg', selectedFile);
+    
+    formDataObj.append('username', formData.username);
+    formDataObj.append('email', formData.email)
+    formDataObj.append('password', formData.password)
+
     dispatch(setIsLoading(true))
-    axios.post('https://ecommerce-api-react.herokuapp.com/api/v1/users', formData)
+    axios.post(`${API_URL}/users`, formDataObj, config)
       .then(() => {
         setSignUpError('')
         setIsLogin(true)
         setSignUp(false)
       })
       .catch(error => {
-        if (error.response.status === 400) {
+        console.log(error.response)
+        if (error.response.status === 404) {
           setSignUpError(error.response.data.message)
         }
       })
       .finally(()=> dispatch(setIsLoading(false)))
   }
 
+  const inputImgChange = (e) => {
+      setSelectedFile(e.target.files[0])
+  } 
+  
   return (
     <div className={styles.signUpContainer}>
       <h1 className={styles.signUpTitle}>Sign Up</h1>
       <form onSubmit={handleSubmit}>
-        <label className={styles.inputLabel}>First Name</label>
+        <label className={styles.inputLabel}>Username</label>
         <input
           className={styles.inputForm}
           type="text"
-          value={formData.firstName}
-          name='firstName'
-          onChange={handleChange}
-        />
-        <label className={styles.inputLabel}>Last Name</label>
-        <input
-          className={styles.inputForm}
-          type="text"
-          value={formData.lastName}
-          name='lastName'
+          value={formData.username}
+          name='username'
           onChange={handleChange}
         />
         <label className={styles.inputLabel}>Email</label>
@@ -80,14 +91,26 @@ const SignUp = ({ closeModal, setSignUp, setIsLogin }) => {
           name='password'
           onChange={handleChange}
         />
-        <label className={styles.inputLabel}>Phone (10 characters)</label>
-        <input
-          className={styles.inputForm}
-          type="text"
-          value={formData.phone}
-          name='phone'
-          onChange={handleChange}
-        />
+        <div className={styles.inputContainer}>
+          <label
+            className={styles.labelImginput}>
+            <span
+              className={styles.labelTextImg}
+            >
+              Avatar Image
+            </span>
+            <BsFillImageFill
+              className={styles.iconImg}
+            />
+            <input
+            className={styles.inputImg}
+            type="file"
+            accept="image/*"
+            name='avatarImg'
+            onChange={inputImgChange}
+            />
+          </label>
+        </div>
         <button
           className={styles.signUpButton}
           >Sign Up</button>

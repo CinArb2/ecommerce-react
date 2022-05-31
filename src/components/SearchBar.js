@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { BsSearch } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { fetchProductQuery } from '../redux/actionCreators';
+import { fetchProductQuery } from '../redux/products/productActionCreators';
 import styles from '../styles/SearchBar.module.css'
 
-const SearchBar = () => {
+const SearchBar = ({grow, setGrow}) => {
   const dispatch = useDispatch()
   const [data, setData] = useState('')
   const navigate = useNavigate()
@@ -19,7 +19,9 @@ const SearchBar = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form onSubmit={handleSubmit}
+      className={styles.form}
+    >
       <input
         className={styles.formInput}
         type="text"

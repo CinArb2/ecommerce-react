@@ -5,7 +5,9 @@ const Hero = () => {
   return (
     <div className={styles.heroContainer}>
       <div className={styles.heroText}>
-        <h3>Upgrade to the best of the digital age</h3>
+        <h3>All that you need,</h3>
+        <h3>All that you want,</h3>
+        <h3>just here at all!</h3>
       </div>
       <div className={styles.imageHero}></div>
     </div>

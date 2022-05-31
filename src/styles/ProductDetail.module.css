@@ -8,7 +8,8 @@
 }
 
 .breadcrumbLink{
-  color: blue;
+  color: var(--purple);
+  font-weight: bold;
 }
 
 .breadcrumb{
@@ -35,10 +36,22 @@
 }
 
 .subheading{
-  color: #f85555;
   margin-block: 4rem;
   max-width: 1550px;
-  margin-inline: auto;
+  margin-right: auto;
+  width: fit-content;
+  position: relative;
+}
+
+.subheading::after{
+  content: '';
+  height: 20px;
+  width: 100px;
+  position: absolute;
+  background-color: var(--title-deco);
+  right: -10%;
+  top: 40%;
+  z-index: -1;
 }
 
 .separator{

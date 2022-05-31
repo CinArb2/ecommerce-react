@@ -4,7 +4,7 @@ import styles from '../styles/ProductList.module.css'
 import ProductCard from './ProductCard'
 
 const ProductList = () => {
-  const products = useSelector(state => state.products)
+  const products = useSelector(state => state.products.productList)
 
   return (
     <div className={styles.containerProducts}>
@@ -14,7 +14,7 @@ const ProductList = () => {
           className={styles.errorMessage}
           >Product not found... try again</h3>
           :
-        products.map(product => (
+        products?.map(product => (
           <ProductCard key={product.id} productInfo={product} path={'/product/'}/>
         ))
       }

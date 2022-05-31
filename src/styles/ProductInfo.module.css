@@ -3,7 +3,7 @@
   line-height: 1.5;
 }
 .title{
-  margin-block: 2rem;
+  margin-top: 2rem;
   font-size: 2rem;
 }
 
@@ -16,6 +16,19 @@
   gap: 2rem;
   align-items: center;
   margin-bottom: 1rem;
+}
+
+.shopInfoHeader{
+  display: flex;
+  align-items: center;
+}
+
+.shopLogoWrapper{
+  border: 1px solid var(--color-border);
+  width: 35px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .containerPrice, .containerCounter{
@@ -31,17 +44,32 @@
   font-size: 1.4rem;
 }
 
-.btn, .counter{
+.btnLeft, .btnRight, .counter{
   background-color: white;
   border: 1px solid gray;
   font-size: 1.5rem;
   color: gray;
 }
 
-.btn{
+.btnLeft:hover,
+.btnRight:hover{
+  background-color: var(--gray-hover);
+}
+
+.btnLeft, .btnRight{
   cursor: pointer;
   width: 50px;
   padding-block: 0;
+}
+
+.btnLeft{
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+}
+
+.btnRight{
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
 }
 
 .counter{
@@ -51,18 +79,48 @@
 }
 
 .btnCart{
-  background-color: #f85555;
+  background-color: var(--btn-color);
   border: none;
-  color: white;
   width: 100%;
   font-size: 2rem;
   margin-block: 1rem;
   cursor: pointer;
   max-width: 400px;
+  border: 1px solid var(--color-border);
+  border-radius: 50px;
+}
+
+.shopInfo{
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.shopName{
+  font-weight: 600;
+  display: inline;
+  padding-left: 0.5rem;
+}
+
+.btnViewShop{
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+  font-size: 0.7rem;
+  letter-spacing: 1.2px;
+  text-align: left;
+  color: inherit;
+  border-radius: 50px;
+}
+
+.btnViewShop:hover{
+  background-color: var(--gray-hover);
 }
 
 .btnCart:hover{
-  background-color: #f59c9c;
+  background-color: var(--btn-hover);
 }
 
 .messageError{

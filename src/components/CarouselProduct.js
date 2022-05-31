@@ -9,14 +9,14 @@ import { useSelector } from 'react-redux';
 
 
 const CarouselProduct = () => {
-  const selectedProduct = useSelector(state => state.selectedProduct)
+  const selectedProduct = useSelector(state => state.products.selectedProduct)
   const [sliderRef, setSliderRef] = useState(null)
 
   const settings = {
       customPaging: function(i) {
       return (
           <div className={style.thumb} >
-            <img src={selectedProduct?.productImgs?.[i]} alt='slice' className={style.imgThumb} />
+            <img src={selectedProduct?.productImgs?.[i].imgUrl} alt='slice' className={style.imgThumb} />
           </div>
         )
       },
@@ -45,7 +45,7 @@ const CarouselProduct = () => {
         {
           selectedProduct?.productImgs?.map((img, index) => (
             <div key={index} >
-              <img src={img} alt='slice' className={style.image}/>
+              <img src={img.imgUrl} alt='slice' className={style.image}/>
             </div>
           ))
         }

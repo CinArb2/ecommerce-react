@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCategories, fetchSelectedCategory, fetchProducts } from '../redux/actionCreators'
+import { fetchCategories, fetchSelectedCategory, fetchProducts } from '../redux/products/productActionCreators'
 import styles from '../styles/AsideComp.module.css'
+
+const compStyle = {
+  color: "#485470",
+  backgroundColor: "#f1f4fb",
+  borderRadius: '50px'
+}
 
 const AsideComp = () => {
   const dispatch = useDispatch()
-  const categories = useSelector(state => state.categories)
+  const categories = useSelector(state => state.products.categories)
   const [activeButton, setActiveButton] = useState("");
 
   const handleClickAllBtn = () => {
@@ -20,10 +26,13 @@ const AsideComp = () => {
 
   useEffect(() => {
     dispatch(fetchCategories())
-  }, [dispatch])
+    if (!activeButton) {
+      dispatch(fetchProducts())
+    }
+  }, [dispatch, activeButton])
 
   return (
-    <div>
+    <div className={styles.asideWrapper}>
       <h2 className={styles.asideTitle}>Categories</h2>
       <div className={styles.categoryBtns}>
         <button
@@ -32,13 +41,11 @@ const AsideComp = () => {
             handleClickAllBtn();
             setActiveButton('all');
           }}
-          style={{
-              color: activeButton === 'all' ? "#f85555" : ""
-          }}
+          style={activeButton === 'all' ? compStyle : {}}
         >
           All products
         </button>
-        {categories.map(category => (
+        {categories?.map(category => (
         <button
           key={category.id}
             onClick={() => {
@@ -46,9 +53,7 @@ const AsideComp = () => {
               setActiveButton(category.id);
             }}
             className={styles.btnAside}
-            style={{
-              color: activeButton === category.id ? "#f85555" : ""
-            }}
+            style={activeButton === category.id ? compStyle : {}}
           >
           {category.name}
         </button>
