@@ -79,7 +79,7 @@ const CreateProduct = () => {
   }
 
   return (
-    <div className={styles.createContainer}>
+    <div className={styles.cardContainer}>
       <h2>Create Product</h2>
       <form onSubmit={handleSubmit}>
         <div className={styles.inputContainer}>
@@ -96,7 +96,7 @@ const CreateProduct = () => {
         <div className={styles.inputContainer}>
           <label htmlFor="">Description</label>
           <textarea
-            // className={styles.inputForm}
+            className={styles.inputTextArea}
             value={formData.description}
             name='description'
             placeholder="maximum 50 characters"
@@ -107,7 +107,7 @@ const CreateProduct = () => {
         <div className={styles.inputContainer}>
           <label htmlFor="">Price</label>
           <input
-            className={styles.inputForm}
+            className={styles.inputNumber}
             type="number"
             value={formData.price}
             name='price'
@@ -119,7 +119,7 @@ const CreateProduct = () => {
         <div className={styles.inputContainer}>
           <label htmlFor="">Quantity</label>
           <input
-            className={styles.inputForm}
+            className={styles.inputNumber}
             type="number"
             min="1"
             value={formData.quantity}
@@ -135,6 +135,7 @@ const CreateProduct = () => {
                 value={formData.categoryId}
                 onChange={handleChange}
                 name="categoryId"
+                className={styles.inputNumber}
                 required>
                 <option value="">-- Choose --</option>
                 {
@@ -153,7 +154,7 @@ const CreateProduct = () => {
             <span
               className={styles.labelTextImg}
             >
-              Select up to 3 images for your product
+              Select up to 3 product images
             </span>
             <BsFillImageFill
               className={styles.iconImg}
@@ -168,9 +169,11 @@ const CreateProduct = () => {
             />
           </label>
         </div>
-        <button>Submit</button>
+        <div className={styles.containerBtns}>
+          <button type="reset" className={styles.btnCancel}>Cancel</button>
+          <button type="submit" className={styles.btnSubmit}>Submit</button>
+        </div>
       </form>
-      <button>Cancel</button>
       {errormsg && <p className={styles.messageError}> {errormsg} </p>}
     </div>
   )

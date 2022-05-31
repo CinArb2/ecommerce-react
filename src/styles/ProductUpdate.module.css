@@ -1,23 +1,35 @@
-
-.inputImg{
-  display: none;
+.containerUpdate{
+  padding: 2rem;
 }
 
-.labelImginput{
-  cursor: pointer;
+.updateTitle{
+  position: relative;
+  width: fit-content;
+  z-index: 1;
+  margin-bottom: 2rem;
 }
 
-.labelTextImg{
-  display: block;
+.updateTitle::after{
+  content: '';
+  height: 20px;
+  width: 100px;
+  position: absolute;
+  background-color: var(--title-deco);
+  right: -10%;
+  top: 40%;
+  z-index: -1;
 }
 
-.iconImg{
-  font-size: 3rem;
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 50%;
-  border: 1px solid var(--color-text);
+.updateText{
+  padding-bottom: 2rem;
 }
+
+.containerInfo{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
 
 .cardContainer{
   padding: 2rem;
@@ -28,27 +40,6 @@
   margin: 0 auto;
   border: 1px solid var(--color-border);
   border-radius: 50px;
-  min-height: 100%;
-  display: grid;
-  place-content: center;
-}
-
-.cardContainer h2{
-  position: relative;
-  width: fit-content;
-  z-index: 1;
-  margin-bottom: 1rem;
-}
-
-.cardContainer h2::after{
-  content: '';
-  height: 20px;
-  width: 100px;
-  position: absolute;
-  background-color: var(--title-deco);
-  right: -10%;
-  top: 40%;
-  z-index: -1;
 }
 
 .inputContainer{
@@ -113,4 +104,24 @@
   display: block;
   background-color: var(--btn-selected);
   width: 100px;
+}
+
+.inputImg{
+  display: none;
+}
+
+.labelImginput{
+  cursor: pointer;
+}
+
+.labelTextImg{
+  display: block;
+}
+
+.iconImg{
+  font-size: 3rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  border: 1px solid var(--color-text);
 }

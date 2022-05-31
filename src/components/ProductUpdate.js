@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import styles from '../styles/CreateProduct.module.css'
+import styles from '../styles/ProductUpdate.module.css'
 import { BsFillImageFill } from 'react-icons/bs'
-import { deleteProductById, fetchCategories, fetchProducts, updateProduct } from '../redux/products/productActionCreators'
+import { deleteProductById, fetchCategories } from '../redux/products/productActionCreators'
 import setIsLoading from '../redux/loader/loaderActionCreators'
 import axios from 'axios'
 import { getShopProducts } from '../redux/shop/shopActionCreators'
+import TableProduct from './TableProduct'
 
 const ProductUpdate = () => {
   const [formData, setFormData] = useState({
@@ -21,16 +22,18 @@ const ProductUpdate = () => {
   const categories = useSelector(state => state.products.categories)
   const [errormsg, setErrorMsg] = useState('')
   const currentShop = useSelector(state => state.shop.currentShop)
-  const shopProducts = useSelector(state => state.shop.shopProducts)
-  // const [edit, setEdit] = useState(false)
   
   useEffect(() => {
-    dispatch(getShopProducts(currentShop.id))
+    if (!currentShop.id) {
+      dispatch(getShopProducts(currentShop.id))
+    }
   }, [dispatch, currentShop.id])
 
   useEffect(() => {
-    dispatch(fetchCategories())
-  }, [dispatch])
+    if (!categories) {
+      dispatch(fetchCategories())
+    }
+  }, [dispatch, categories])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -124,135 +127,113 @@ const ProductUpdate = () => {
   }
 
   return (
-    <div>
-      <h2>Update Product</h2>
-      <div>
-        <p>Select product to update from the list</p>
-        <div>
-          <table>
-            <tbody>
-              <tr>
-                <td>Product Name</td>
-                <td>Available quantity</td>
-                <td>Price</td>
-                <td>Status</td>
-                <td>action</td>
-              </tr>
-              {
-                shopProducts.map(prod => (
-                  <tr key={prod.id}>
-                    <td>{prod.title}</td>
-                    <td>{prod.quantity}</td>
-                    <td>{prod.price}</td>
-                    <td>{prod.status}</td>
-                    <td>
-                      <button
-                        onClick={()=>handleUpdate(prod)}
-                      >Update</button>
-                      <button
-                        onClick={()=>handleDelete(prod.id)}
-                      >Delete</button>
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
+    <div className={styles.containerUpdate}>
+      <h2 className={styles.updateTitle}>Update Product</h2>
+      <p className={styles.updateText}>Select a product to update from the list</p>
+      <div className={styles.containerInfo}>
+        <div className={styles.containerTable}>
+          <TableProduct
+            addBtns={true}
+            handleUpdate={handleUpdate}
+            handleDelete={handleDelete}
+          />
         </div>
-      </div>
 
-      <form onSubmit={handleSubmit}>
-        <div className={styles.inputContainer}>
-          <label htmlFor="">Title</label>
-          <input
-            className={styles.inputForm}
-            type="text"
-            value={formData.title}
-            name='title'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className={styles.inputContainer}>
-          <label htmlFor="">Description</label>
-          <textarea
-            className={styles.inputForm}
-            value={formData.description}
-            name='description'
-            placeholder="maximum 50 characters"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className={styles.inputContainer}>
-          <label htmlFor="">Price</label>
-          <input
-            className={styles.inputForm}
-            type="number"
-            value={formData.price}
-            name='price'
-            min="1"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className={styles.inputContainer}>
-          <label htmlFor="">Quantity</label>
-          <input
-            className={styles.inputForm}
-            type="number"
-            min="1"
-            value={formData.quantity}
-            name='quantity'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className={styles.inputContainer}>
-            <label htmlFor="categoryId">Category</label>
-            <select 
-                id="categoryId"
-                value={formData.categoryId}
-                onChange={handleChange}
-                name="categoryId"
-                required>
-                <option value="">-- Choose --</option>
-                {
-                  categories.map(category => (
-                    <option
-                      key={category.id}
-                      value={category.id}
-                    >{category.name}</option>
-                  ))
-                }
-            </select>
-        </div>
-        <div className={styles.inputContainer}>
-          <label
-            className={styles.labelImginput}>
-            <span
-              className={styles.labelTextImg}
-            >
-              Select up to 3 images for your product
-            </span>
-            <BsFillImageFill
-              className={styles.iconImg}
-            />
+        <form onSubmit={handleSubmit} className={styles.cardContainer}>
+          <div className={styles.inputContainer}>
+            <label htmlFor="">Title</label>
             <input
-            className={styles.inputImg}
-            type="file"
-            accept="image/*"
-            name='productImg'
-            onChange={inputImgChange}
-            multiple
+              className={styles.inputForm}
+              type="text"
+              value={formData.title}
+              name='title'
+              onChange={handleChange}
+              required
             />
-          </label>
-        </div>
-        <button>Submit</button>
-      </form>
-      
-      <button>Cancel</button>
-      {errormsg && <p className={styles.messageError}> { errormsg} </p>}
+          </div>
+          <div className={styles.inputContainer}>
+            <label htmlFor="">Description</label>
+            <textarea
+              className={styles.inputTextArea}
+              value={formData.description}
+              name='description'
+              placeholder="maximum 50 characters"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className={styles.inputContainer}>
+            <label htmlFor="">Price</label>
+            <input
+              className={styles.inputNumber}
+              type="number"
+              value={formData.price}
+              name='price'
+              min="1"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className={styles.inputContainer}>
+            <label htmlFor="">Quantity</label>
+            <input
+              className={styles.inputNumber}
+              type="number"
+              min="1"
+              value={formData.quantity}
+              name='quantity'
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className={styles.inputContainer}>
+              <label htmlFor="categoryId">Category</label>
+              <select 
+                  id="categoryId"
+                  className={styles.inputNumber}
+                  value={formData.categoryId}
+                  onChange={handleChange}
+                  name="categoryId"
+                  required>
+                  <option value="">-- Choose --</option>
+                  {
+                    categories.map(category => (
+                      <option
+                        key={category.id}
+                        value={category.id}
+                      >{category.name}</option>
+                    ))
+                  }
+              </select>
+          </div>
+          <div className={styles.inputContainer}>
+            <label
+              className={styles.labelImginput}>
+              <span
+                className={styles.labelTextImg}
+              >
+                Select up to 3 images for your product
+              </span>
+              <BsFillImageFill
+                className={styles.iconImg}
+              />
+              <input
+              className={styles.inputImg}
+              type="file"
+              accept="image/*"
+              name='productImg'
+              onChange={inputImgChange}
+              multiple
+              />
+            </label>
+          </div>
+          <div className={styles.containerBtns}>
+            <button className={styles.btnCancel} type="reset">Cancel</button>
+            <button className={styles.btnSubmit} type="submit">Submit</button>
+          </div>
+          {errormsg && <p className={styles.messageError}> { errormsg} </p>}
+        </form>
+      </div>
     </div>
   )
 }

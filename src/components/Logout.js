@@ -69,8 +69,10 @@ const Logout = ({ closeModal }) => {
   }
 
   useEffect(() => {
-    dispatch(getUserInfo())
-  }, [dispatch])
+    if (userInfo.id) {
+      dispatch(getUserInfo())
+    }
+  }, [dispatch, userInfo.id])
   
   return (
     <div className={styles.logoutContainer}>

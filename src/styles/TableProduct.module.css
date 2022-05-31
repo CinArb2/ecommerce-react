@@ -1,0 +1,90 @@
+.containerTable{
+  border: 1px solid var(--color-border);
+  border-radius: 30px;
+  padding: 1.5rem 2rem;
+}
+
+.tableTitle{
+  position: relative;
+  width: fit-content;
+  z-index: 1;
+  margin-bottom: 1rem;
+}
+
+.tableTitle::after{
+  content: '';
+  height: 20px;
+  width: 40px;
+  position: absolute;
+  background-color: var(--title-deco);
+  right: -10%;
+  top: 40%;
+  z-index: -1;
+}
+
+.stockTable {
+ border-spacing: 10px 15px;
+}
+
+.stockTable th{
+ text-align: left;
+}
+
+.stockTable tr{
+  margin-bottom: 1rem;
+}
+
+.containerBtns{
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btnEdit{
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  display: grid;
+  place-content: center;
+  padding: 0.3rem;
+  background-color: var(--btn-color);
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.btnDelete{
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  display: grid;
+  place-content: center;
+  padding: 0.3rem;
+  background-color: var(--danger);
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.btnSubmit{
+  border: 1px solid var(--color-border);
+  border-radius: 50px;
+  padding-block: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  letter-spacing: 1.2px;
+  color: inherit;
+  display: block;
+  width: 100px;
+  background-color: var(--btn-color);
+  cursor: pointer;
+}
+
+.btnCancel{
+  border: 1px solid var(--color-border);
+  border-radius: 50px;
+  padding-block: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  letter-spacing: 1.2px;
+  color: inherit;
+  display: block;
+  background-color: var(--btn-selected);
+  width: 100px;
+  cursor: pointer;
+}
