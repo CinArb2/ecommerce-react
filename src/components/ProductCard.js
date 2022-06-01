@@ -6,7 +6,7 @@ import Modal from './Modal';
 import Cart from './Cart';
 import Login from './Login';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, getCart } from '../redux/cart/cartActionCreators';
+import { addToCart, updateCart } from '../redux/cart/cartActionCreators';
 import SignUp from './SignUp';
 import Logout from './Logout';
 
@@ -14,13 +14,33 @@ const ProductCard = ({productInfo, path}) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isLogin, setIsLogin] = useState(false)
   const [signUp, setSignUp] = useState(false)
-  // const cart = useSelector(state => state.cart)
-  // const dispatch = useDispatch()
+  const cart = useSelector(state => state.cart)
+  const dispatch = useDispatch()
   
   const handleModalBtn = () => {
-    if (!localStorage.getItem('token')) {
-      setIsOpen(true)
+    
+    if (localStorage.getItem('token')) {
+      let productObj = {
+        productId: productInfo.id,
+        quantity: ''
+      }
+      const findProduct =
+        cart.productsCart.length > 0 ? 
+        cart.productsCart.find(el => el.productId === productInfo.id) : null
+
+      if (findProduct) {
+        productObj.quantity = findProduct.quantity + 1
+        dispatch(updateCart(productObj))
+        setIsOpen(true)
+        return 
+      }
+
+      productObj.quantity = 1
+
+      dispatch(addToCart(productObj))
     }
+    
+    setIsOpen(true)
   }
 
   const handleScroll = () => {

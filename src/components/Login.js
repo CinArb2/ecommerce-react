@@ -3,6 +3,7 @@ import styles from '../styles/Login.module.css'
 import axios from 'axios'
 import { useDispatch} from 'react-redux'
 import { setIsLoading } from '../redux/loader/loaderActionCreators'
+import { getUserInfo } from '../redux/user/userActionCreators'
 
 const Login = ({closeModal, setSignUp, setIsLogin}) => {
   const [formData, setFormData] = useState({
@@ -30,9 +31,9 @@ const Login = ({closeModal, setSignUp, setIsLogin}) => {
     axios.post('http://localhost:3000/api/v1/users/login', formData)
       .then(resp => {
         localStorage.setItem('token', resp.data.token)
-        localStorage.setItem('user', `${resp.data.user.username}` )
         setLoginError('')
         closeModal(false)
+        dispatch(getUserInfo())
       })
       .catch(error => {
         if (error.response.status === 400) {

@@ -5,7 +5,7 @@ import { setIsLoading } from '../loader/loaderActionCreators'
 
 const API_URL = 'http://localhost:3000/api/v1'
 
-export const getCart = ( ) => {
+export const getProductsCart = ( ) => {
   return (dispatch) => {
     return axios.get(`${API_URL}/cart`, getConfig())
       .then((response) => dispatch(setCart(response.data.productInCArt)))
@@ -13,7 +13,7 @@ export const getCart = ( ) => {
         if (error.response.status === 404) {
           dispatch(cleanInfoCart())
         }
-      })
+    })
   }
 }
 
@@ -21,16 +21,17 @@ export const addToCart = (product) => {
   return  (dispatch) => {
     dispatch(setIsLoading(true))
     return axios.post(`${API_URL}/cart/add-product`, product, getConfig())
-      .then(() => dispatch(getCart()))
+      .then(() => dispatch(getProductsCart()))
+      .catch(error => console.log(error.response))
       .finally(()=> dispatch(setIsLoading(false)))
   }
 }
 
-export const deleteProduct = (id) => {
+export const deleteProductCart = (id) => {
   return  (dispatch) => {
     dispatch(setIsLoading(true))
     return axios.delete(`${API_URL}/cart/${id}`, getConfig())
-      .then(() => dispatch(getCart()))
+      .then(() => dispatch(getProductsCart()))
       .finally(()=> dispatch(setIsLoading(false)))
   }
 }
@@ -47,7 +48,7 @@ export const updateCart = (product) => {
   return  (dispatch) => {
     dispatch(setIsLoading(true))
     return axios.patch(`${API_URL}/cart/update-cart`, product, getConfig())
-      .then(() => dispatch(getCart()))
+      .then(() => dispatch(getProductsCart()))
       .finally(()=> dispatch(setIsLoading(false)))
   }
 }

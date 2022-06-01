@@ -22,8 +22,10 @@
   width: 1000px;
 }
 
-.logo{
+.logo img{
   width: 180px;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
 .navBar li{
@@ -88,20 +90,25 @@
 
 @media screen and (max-width: 650px){
   .navBar{
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    grid-template-rows: 1fr 1fr;
-    padding: 1rem;
-  }
-  .logo{
-    grid-area: 1 / 1 / span 1 / span 2;
+    display: block;
   }
   .navbarList{
-    grid-area: 2 / 4 / span 1 / span 3;
+    margin-left: 1rem;
+  }
+}
+
+@media screen and (max-width: 450px){
+  .navBar{
+    padding: 0 3rem;
+  }
+
+  .navRight{
+    display: block;
+  }
+
+  .navbarList{
+    justify-content: center;
     margin-top: 1rem;
-  }
-  .navbarList{
-    gap: 3vw;
-    justify-content: space-between;
+    gap: 1rem;
   }
 }

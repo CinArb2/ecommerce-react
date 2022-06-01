@@ -1,40 +1,30 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { deleteProduct, emptyCart, getCart, purchaseCart } from '../redux/cart/cartActionCreators'
+import { deleteProductCart, getProductsCart, purchaseCart } from '../redux/cart/cartActionCreators'
 import styles from '../styles/Cart.module.css'
 import { BsTrash } from 'react-icons/bs';
 
 const Cart = ({setIsLogin, setIsOpen}) => {
   const dispatch = useDispatch()
   const cart = useSelector(state => state.cart)
-  const navigate = useNavigate()
+  let sum = 0;
 
   const handleDelete = (id) => {
-    if (cart.products.length > 1) {
-      dispatch(deleteProduct(id))
-    } else {
-      dispatch(deleteProduct(id))
-      dispatch(emptyCart())
-    }
+   dispatch(deleteProductCart(id))
   }
 
   const handleCheckout = () => {
-    if (cart.products) {
+    if (cart.productsCart.length > 0) {
       dispatch(purchaseCart())
-      setIsOpen(false)
-      navigate('/purchases')
     } 
   }
+  
+  if (cart.productsCart.length > 0) {
+    sum = cart.productsCart?.reduce((prev, curr) => prev + curr.product.price * curr.quantity, 0).toFixed(2)
+  }
 
-  const sum = cart.products?.reduce((prev, curr) => prev + curr.price * curr.productsInCart.quantity, 0)
-  
-  useEffect(() => {
-    // if (localStorage.getItem('token')) {
-    //   dispatch(getCart())
-    // }
-  }, [dispatch])
-  
+
   return (
     <div className={styles.containerCart}>
       <h1 className={styles.cartTitle}>Cart</h1>
@@ -43,16 +33,16 @@ const Cart = ({setIsLogin, setIsOpen}) => {
           <div className={styles.cartWrapper}>
             <div className={styles.cartList}>
               {
-                cart.products ? 
-                  cart?.products?.map(prod => (
+                cart.productsCart.length > 0 ? 
+                  cart?.productsCart?.map(prod => (
                   <div key={prod.id} className={styles.productContainer}>
                     <div>
-                      <p className={styles.productTitle}>{prod.title}</p>
-                      <p> <span className={styles.productTag}>Quantity:</span> {prod.productsInCart.quantity}</p>
-                      <p> <span className={styles.productTag}>Price:</span> $ {prod.price}</p>
+                      <p className={styles.productTitle}>{prod.product.title}</p>
+                      <p> <span className={styles.productTag}>Quantity:</span> {prod.quantity}</p>
+                      <p> <span className={styles.productTag}>Price:</span> $ {prod.product.price}</p>
                     </div>
                     <button
-                        onClick={() => handleDelete(prod.id)}
+                        onClick={() => handleDelete(prod.productId)}
                       className={styles.btnDelete}>
                         <BsTrash/>
                     </button>

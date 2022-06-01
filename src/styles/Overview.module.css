@@ -78,3 +78,18 @@
   top: 50%;
   z-index: -1;
 }
+
+@media screen and (max-width: 1020px){
+  .overviewBody{
+    display: block;
+  }
+
+  .overviewHeader{
+    text-align: center;
+  }
+
+  .shopSummary{
+    margin-top: 1rem;
+    padding: 1rem;
+  }
+}

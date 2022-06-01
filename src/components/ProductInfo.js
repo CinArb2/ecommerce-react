@@ -3,7 +3,13 @@ import { BiStore } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router';
 import { addToCart, updateCart } from '../redux/cart/cartActionCreators'
+import { cleanShop } from '../redux/shop/shopActionCreators';
 import styles from '../styles/ProductInfo.module.css'
+import Cart from './Cart';
+import Login from './Login';
+import Logout from './Logout';
+import Modal from './Modal';
+import SignUp from './SignUp';
 
 function ProductInfo() {
   const [counter, setCounter] = useState(1)
@@ -12,6 +18,11 @@ function ProductInfo() {
   const dispatch = useDispatch()
   const [message, setMessage] = useState('')
   const navigate = useNavigate()
+
+  //modal actions
+  const [isOpen, setIsOpen] = useState(false)
+  const [isLogin, setIsLogin] = useState(false)
+  const [signUp, setSignUp] = useState(false)
 
   useEffect(() => {
     setCounter(1)
@@ -29,33 +40,37 @@ function ProductInfo() {
   }
 
   const handleViewShop = () => {
+    dispatch(cleanShop())
     navigate(`/shop/${selectedProduct.shopId}`)
     window.scrollTo(0, 0);
   }
 
   const handleCartBtn = () => {
-    if (!localStorage.getItem('token')) {
-      return setMessage('Please Login in order to add products to the cart')
-    }
-    if (cart.products?.some(el => el.id === selectedProduct.id)) {
-      const bodyRequest = {
-      id: selectedProduct.id,
-      newQuantity: counter,
+    if (localStorage.getItem('token')) {
+    
+
+      let bodyRequest = {
+        productId: selectedProduct.id,
+        quantity: ''
       }
-      dispatch(updateCart(bodyRequest))
-      setCounter(1)
-    } else {
-      const bodyRequest = {
-      id: selectedProduct.id,
-      quantity: counter,
+
+      let productAlreadyIncart = cart.productsCart.length > 0 ? cart.productsCart?.find(el => el.productId === selectedProduct.id) : null
+
+      if (productAlreadyIncart) {
+        bodyRequest.quantity = counter + productAlreadyIncart.quantity
+        dispatch(updateCart(bodyRequest))
+      } else {
+        bodyRequest.quantity = counter
+        dispatch(addToCart(bodyRequest))
       }
-      dispatch(addToCart(bodyRequest))
       setCounter(1)
     }
+    setIsOpen(true)
   }
 
 
   return (
+    <>
     <div className={styles.productContainer}>
       <h2 className={styles.title}>{selectedProduct?.title}</h2>
       <div className={styles.shopInfo}>
@@ -95,7 +110,29 @@ function ProductInfo() {
         Add to cart
       </button>
       {message && <p className={styles.messageError}>{message}</p>}
-    </div>
+      </div>
+      <Modal
+        closeModal={setIsOpen}
+        setSignUp={setSignUp}
+        setIsLogin={setIsLogin}
+        isOpen={isOpen}>
+        {isLogin ?
+          localStorage.getItem('token') ?
+            <Logout closeModal={setIsOpen}/> :
+            <Login
+              closeModal={setIsOpen}
+              setSignUp={setSignUp}
+              setIsLogin={setIsLogin}/>
+          : signUp ?
+            <SignUp
+              closeModal={setIsOpen}
+              setSignUp={setSignUp}
+              setIsLogin={setIsLogin}/> 
+            :
+            <Cart setIsLogin={setIsLogin}
+              setIsOpen={setIsOpen}/>}
+      </Modal>
+    </>
   )
 }
 

@@ -8,7 +8,7 @@
 }
 
 .description{
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 3vw, 1.2rem);
   margin-bottom: 2rem;
 }
 .containerOtros{
@@ -94,7 +94,8 @@
   display: flex;
   align-items: center;
   gap: 2rem;
-  margin-bottom: 2rem;
+  margin: 1rem 0 2rem;
+  max-width: 350px;
 }
 
 .shopName{
@@ -113,6 +114,10 @@
   text-align: left;
   color: inherit;
   border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: auto;
 }
 
 .btnViewShop:hover{
@@ -145,5 +150,15 @@
   .containerPrice, .containerCounter{
     width: 100%;
     margin-block: 1rem;
+  }
+
+  .shopInfo{
+    display: block;
+    margin: 1rem auto 2rem;
+  }
+
+  .shopInfoHeader{
+    justify-content: center;
+    margin-bottom: 1rem;
   }
 }

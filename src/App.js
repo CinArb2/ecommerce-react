@@ -12,6 +12,9 @@ import CreateProduct from "./components/CreateProduct";
 import Overview from "./components/Overview";
 import ProductUpdate from "./components/ProductUpdate";
 import ShopUpdate from "./components/ShopUpdate";
+import UserManager from "./Pages/UserManager";
+import UserSettings from "./components/UserSettings";
+import UserOrders from "./components/UserOrders";
 
 
 function App() {
@@ -28,6 +31,10 @@ function App() {
           <Route element={<ProtectedRoutes />}>
             <Route path="/purchases" element={<Purchases />} />
             <Route path="/shop/" element={<Shop />} />
+            <Route path="/userManager/*" element={<UserManager />} >
+              <Route path="orders" element={<UserOrders />} />
+              <Route path="settings" element={<UserSettings/>}/>
+            </Route>
             <Route path="/shop/manager/*" element={<ShopManager />}>
               <Route path="overview" element={<Overview/>}/>
               <Route path="createProduct" element={<CreateProduct/>}/>

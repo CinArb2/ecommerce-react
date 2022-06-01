@@ -28,13 +28,16 @@
 
 .btn{
   position: absolute;
-  background-color: var(--btn-color);
-  border: 1px solid var(--color-border);
+  background-color: var(--gray-hover);
+  /* border: 1px solid var(--color-border); */
+  border: none;
   color: var(--color-text);
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 50%;
   cursor: pointer;
   z-index: 1;
+  display: grid;
+  place-content: center;
 }
 
 .btn:hover{
@@ -55,8 +58,8 @@
 
 @media screen and (max-width: 750px){
   .container{
-    width: 500px;
-    height: 300px;
+    width: 520px;
+    height: 350px;
   }
 
   .thumb{
@@ -71,8 +74,9 @@
 
 @media screen and (max-width: 550px){
   .container{
-    width: 350px;
+    width: 320px;
     height: 300px;
+    margin-bottom: 2rem;
   }
 
   .image{
@@ -81,12 +85,14 @@
   }
 
   .btn.left{
-    left: -18px;
-    top: 50%;
+    left: 50%;
+    transform: translateX(-110%);
+    bottom: -30%;
   }
 
   .btn.right{
-    right: -18px;
-    top: 50%;
+    right: 50%;
+    transform: translateX(110%);
+    bottom: -30%;
   }
 }

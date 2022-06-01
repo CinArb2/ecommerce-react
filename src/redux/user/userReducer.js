@@ -17,6 +17,16 @@ const userReducer = (state = userInitialState, action) => {
         ...state,
         userInfo: action.payload
       };
+    case userActions.SET_USER_ORDERS:
+      return {
+        ...state,
+        userOrders: action.payload
+      };
+    case userActions.CLEAN_USER_ORDERS:
+      return {
+        ...state,
+        userOrders: action.payload
+      };
     default:
       return state;
   }

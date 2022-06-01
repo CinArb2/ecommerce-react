@@ -50,11 +50,13 @@ const ProductDetail = () => {
           <ProductInfo />
         </div>
       </div>
-      <h2 className={style.subheading}>Discover similar products</h2>
-      <div className={style.relatedProducts}>
-        {relatedProd.map(product => (
-            <ProductCard key={product.id} productInfo={product} path={'/product/'}/>
-          )) }
+      <div className={style.containerRelatedProducts}>
+        <h2 className={style.subheading}>Discover similar products</h2>
+        <div className={style.relatedProducts}>
+          {relatedProd.map(product => (
+              <ProductCard key={product.id} productInfo={product} path={'/product/'}/>
+            )) }
+        </div>
       </div>
     </div>
   )

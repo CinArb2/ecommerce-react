@@ -1,5 +1,5 @@
 .productDetailWrapper{
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .breadcrumWrapper{
@@ -59,6 +59,11 @@
   color: #f85555;
   padding-inline: 1rem;
   line-height: 0;
+}
+
+.containerRelatedProducts{
+  max-width: 1550px;
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 1200px){

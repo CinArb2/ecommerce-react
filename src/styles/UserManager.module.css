@@ -1,4 +1,4 @@
-.wrapperShopManager{
+.wrapperUserManager{
   width: 95%;
   margin: 2rem auto;
   display: grid;
@@ -6,7 +6,7 @@
   min-height: 80vh;
 }
 
-.shopManagerControl{
+.userManagerControl{
   padding: 1rem;
   min-width: 300px;
 }
@@ -72,30 +72,4 @@
 
 .linkManager.active{
   background-color: var(--gray-hover);
-}
-
-@media screen and (max-width: 768px){
-
-  .shopManagerControl{
-    min-width: 250px;
-  }
-
-  .wrapperShopManager{
-    display: block;
-  }
-
-  .shopManagerBtns{
-    display: flex;
-    gap: 0.3rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .linkManager{
-    padding: 1rem;
-    border: 1px solid var(--gray-hover);
-  }
-  .linkManager.active{
-    border: none;
-  }
 }

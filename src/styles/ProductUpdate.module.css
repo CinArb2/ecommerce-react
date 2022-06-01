@@ -125,3 +125,19 @@
   border-radius: 50%;
   border: 1px solid var(--color-text);
 }
+
+@media screen and (max-width: 1224px){
+  .containerInfo{
+    display: block;
+  }
+
+  .cardContainer{
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (max-width: 873px){
+  .containerUpdate{
+    padding: 0;
+  }
+}

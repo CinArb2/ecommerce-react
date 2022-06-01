@@ -6,10 +6,11 @@ import style from '../styles/Navbar.module.css'
 import Modal from './Modal';
 import Login from './Login';
 import Cart from './Cart';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Logout from './Logout';
 import SignUp from './SignUp';
 import SearchBar from './SearchBar';
+import { cleanShop, getCurrentShop } from '../redux/shop/shopActionCreators';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -18,12 +19,14 @@ const Navbar = () => {
   const token = useSelector(state => state.token)
   const cart = useSelector(state => state.cart)
   const [grow, setGrow] = useState(true)
+  let totalQuantityCart = 0
   const handleLoginBtn = () => {
     setIsOpen(true)
     setIsLogin(true)
   }
 
   const handleCartBtn = () => {
+    
     setIsOpen(true)
     setIsLogin(false)
   }
@@ -34,7 +37,8 @@ const Navbar = () => {
     }
   }, [token])
 
-  const totalQuantityCart = cart.products?.reduce((prev, curr)=>prev + curr.productsInCart.quantity,0)
+  if(cart.productsCart.length > 0)
+   totalQuantityCart = cart.productsCart?.reduce((prev, curr)=>prev + curr.quantity, 0)
 
   return (
     <>
@@ -58,7 +62,8 @@ const Navbar = () => {
             </li>
             {
               localStorage.getItem('token') &&
-              <NavLink to='/shop?user=me' className={style.navbarBtn} >
+              <NavLink to='/shop?user=me'
+                className={style.navbarBtn} >
                 <BiStore className={style.navbarIcon} />
                 <span className={style.navbarText}>shop </span>
               </NavLink>

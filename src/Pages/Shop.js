@@ -12,27 +12,33 @@ const Shop = () => {
   const currentShop = useSelector(state => state.shop.currentShop)
   const { id } = useParams()
   
+
   useEffect(() => {
+    console.log(currentShop.id)
     if (!id) {
-      console.log(currentShop.id)
+      console.log('current')
       dispatch(getCurrentShop())
       dispatch(getShopProducts(currentShop.id))
     } else {
+      console.log('id')
       dispatch(getShopById(id))
       dispatch(getShopProducts(id))
     }
+    
   }, [dispatch, currentShop.id, id])
+
 
   return (
     <div>
       {
-        currentShop.id ?
-          <>
-            <ShopDetails />
-            <ShopProductList/>
-          </>
-        :
-        <ShopForm/>
+        currentShop.id   &&
+        <>
+          <ShopDetails />
+          <ShopProductList/>
+        </>  
+      }
+      {
+        (!currentShop.id && !id)  && <ShopForm/>
       }
     </div>    
   )

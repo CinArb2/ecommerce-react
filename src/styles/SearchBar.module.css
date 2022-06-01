@@ -19,7 +19,7 @@
 }
 
 .btnForm:hover{
-  background-color: #f59c9c;
+  background-color: var(--btn-hover);
 }
 
 .formInput{

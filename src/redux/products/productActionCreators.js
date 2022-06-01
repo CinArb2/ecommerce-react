@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { productActions } from './productActionTypes'
 import { setIsLoading } from '../loader/loaderActionCreators'
-import { getConfig, getConfigFormData, getConfigUpdate } from '../../helper/getConfig'
+import { getConfig, getConfigUpdate } from '../../helper/getConfig'
 import { getShopProducts } from '../shop/shopActionCreators'
 
 const API_URL = 'http://localhost:3000/api/v1'
@@ -19,7 +19,6 @@ export const fetchSelectedProduct = (id) => {
   return async (dispatch) => {
     dispatch(setIsLoading(true))
     const response = await axios.get(`${API_URL}/products/${id}`)
-    console.log(response)
     dispatch(setSelectedProduct(response.data.product))
     dispatch(setIsLoading(false))
   }

@@ -88,3 +88,9 @@
   width: 100px;
   cursor: pointer;
 }
+
+@media screen and (max-width: 768px){
+  .containerTable{
+    padding: 1rem;
+  }
+}
