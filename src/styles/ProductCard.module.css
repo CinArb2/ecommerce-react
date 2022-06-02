@@ -4,6 +4,7 @@
   position: relative;
   transition: transform 200ms ease-in-out;
   overflow: hidden;
+  max-width: 400px;
 }
 
 .cardWrapper:hover{
@@ -85,4 +86,17 @@
   display: block;
   min-width: 80px;
   text-align: end;
+}
+
+@media screen and (max-width: 1200px){
+  .cardWrapper{
+    max-width: unset;
+    margin-block: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .cardWrapper{
+    margin-block: 3rem;
+  }
 }

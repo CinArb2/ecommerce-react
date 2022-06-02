@@ -6,15 +6,24 @@ import { loadFromLocalStorage, saveToLocalStorage } from '../helper/persistStore
 
 const persistedState = loadFromLocalStorage();
 
+// const composeEnhancers = composeWithDevTools({ 
+//     trace: true, 
+//     traceLimit: 25 
+// }); 
+
 const store = createStore(
   rootReducer,
   persistedState,
   composeWithDevTools(applyMiddleware(thunk))
+  // composeEnhancers(
+  //   applyMiddleware(thunk) )
 )
+
 
 store.subscribe(() => saveToLocalStorage(
   {
-    cart: store.getState().cart
+    cart: store.getState().cart,
+    shop: store.getState().shop,
   }
 ));
 

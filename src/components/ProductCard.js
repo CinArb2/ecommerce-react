@@ -1,19 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import style from '../styles/ProductCard.module.css'
 import { CgArrowLongRight } from 'react-icons/cg';
 import { Link } from 'react-router-dom';
-import Modal from './Modal';
-import Cart from './Cart';
-import Login from './Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, updateCart } from '../redux/cart/cartActionCreators';
-import SignUp from './SignUp';
-import Logout from './Logout';
 
-const ProductCard = ({productInfo, path}) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isLogin, setIsLogin] = useState(false)
-  const [signUp, setSignUp] = useState(false)
+const ProductCard = ({productInfo, path, setIsOpen}) => {
   const cart = useSelector(state => state.cart)
   const dispatch = useDispatch()
   
@@ -52,7 +44,7 @@ const ProductCard = ({productInfo, path}) => {
       <div className={style.cardWrapper}>
         <Link to={`${path}${productInfo.id}`} className={style.linkCard} onClick={handleScroll}>
           <div className={style.cardImage}>
-            <img src={productInfo.productImgs[0].imgUrl} alt="product" />
+            <img src={productInfo.productImgs[0]?.imgUrl} alt="product" />
           </div>
           <div className={style.cardBody}>
             <div className={style.cardHeader}>
@@ -68,27 +60,6 @@ const ProductCard = ({productInfo, path}) => {
             <CgArrowLongRight className={style.cardIcon}/>
           </button>
       </div>
-      <Modal
-        closeModal={setIsOpen}
-        setSignUp={setSignUp}
-        setIsLogin={setIsLogin}
-        isOpen={isOpen}>
-        {isLogin ?
-          localStorage.getItem('token') ?
-            <Logout closeModal={setIsOpen}/> :
-            <Login
-              closeModal={setIsOpen}
-              setSignUp={setSignUp}
-              setIsLogin={setIsLogin}/>
-          : signUp ?
-            <SignUp
-              closeModal={setIsOpen}
-              setSignUp={setSignUp}
-              setIsLogin={setIsLogin}/> 
-            :
-            <Cart setIsLogin={setIsLogin}
-              setIsOpen={setIsOpen}/>}
-      </Modal>
     </>
   )
 }

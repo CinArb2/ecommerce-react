@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from '../styles/CreateProduct.module.css'
 import { BsFillImageFill } from 'react-icons/bs'
-import { fetchCategories } from '../redux/products/productActionCreators'
-import setIsLoading from '../redux/loader/loaderActionCreators'
-import axios from 'axios'
+import { createProduct, fetchCategories } from '../redux/products/productActionCreators'
+import { openModalMsg, setError } from '../redux/error/errorActionCreators'
+
 
 const CreateProduct = () => {
   const [formData, setFormData] = useState({
@@ -17,11 +17,14 @@ const CreateProduct = () => {
   const [selectedFile, setSelectedFile] = useState('');
   const dispatch = useDispatch()
   const categories = useSelector(state => state.products.categories)
-  const [errormsg, setErrorMsg] = useState('')
+  const shopUser = useSelector(state => state.shop.shopUser)
+  const errorMessage = useSelector(state => state.error.errorMsg)
 
   useEffect(() => {
     dispatch(fetchCategories())
   }, [dispatch])
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,17 +43,14 @@ const CreateProduct = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault()
-    const API_URL = 'http://localhost:3000/api/v1'
-    const formDataObj = new FormData();
-    const config = {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'content-type': 'multipart/form-data'
-      }
-    }
     if (!selectedFile) {
-      return setErrorMsg('please upload at least 1 image')
+      dispatch(setError('Please upload at least 1 image'))
+      dispatch(openModalMsg())
+      return 
     }
+    
+    const formDataObj = new FormData();
+    
     formDataObj.append('productImgs', selectedFile[0]);
     formDataObj.append('productImgs', selectedFile[1]);
     formDataObj.append('productImgs', selectedFile[2]);
@@ -60,24 +60,22 @@ const CreateProduct = () => {
     formDataObj.append('quantity', formData.quantity)
     formDataObj.append('categoryId', formData.categoryId)
 
-    for (let value of formDataObj.values()) {
-      console.log(value)
-    }
-
-    dispatch(setIsLoading(true))
-    axios.post(`${API_URL}/products/`, formDataObj, config)
-      .then(() => {
-        setErrorMsg('')
-      })
-      .catch(error => {
-        console.log(error.response)
-        if (error.response.status === 404) {
-          setErrorMsg(error.response.data.message)
-        }
-      })
-      .finally(()=> dispatch(setIsLoading(false)))
+    dispatch(createProduct(formDataObj))
+    setSelectedFile('')
   }
 
+  useEffect(() => {
+    if (errorMessage === 'success') {
+      setFormData({
+        title: '',
+        description: '',
+        price: '',
+        quantity: '',
+        categoryId: '',
+      })
+    }
+  }, [errorMessage, shopUser.products.length])
+  
   return (
     <div className={styles.cardContainer}>
       <h2>Create Product</h2>
@@ -112,6 +110,7 @@ const CreateProduct = () => {
             value={formData.price}
             name='price'
             min="1"
+            step="0.01"
             onChange={handleChange}
             required
           />
@@ -174,7 +173,6 @@ const CreateProduct = () => {
           <button type="submit" className={styles.btnSubmit}>Submit</button>
         </div>
       </form>
-      {errormsg && <p className={styles.messageError}> {errormsg} </p>}
     </div>
   )
 }

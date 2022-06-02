@@ -1,8 +1,20 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const ProtectedRoutes = () => {
-
-  return localStorage.getItem('token') ? <Outlet /> : <Navigate to="/"/>
+  const location = useLocation();
+  const pathname = location.pathname
+  const shopUser = useSelector(state => state.shop.shopUser)
+  
+  return (
+          localStorage.getItem('token') ?
+            pathname.includes('shop/manager') ?
+              shopUser.id ?
+                  <Outlet />
+                : <Navigate to="/shop?user=me" />
+            : <Outlet />
+          : <Navigate to="/" />
+  )
 };
 
 export default ProtectedRoutes;

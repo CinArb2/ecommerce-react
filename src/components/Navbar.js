@@ -6,11 +6,11 @@ import style from '../styles/Navbar.module.css'
 import Modal from './Modal';
 import Login from './Login';
 import Cart from './Cart';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Logout from './Logout';
 import SignUp from './SignUp';
 import SearchBar from './SearchBar';
-import { cleanShop, getCurrentShop } from '../redux/shop/shopActionCreators';
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -20,6 +20,7 @@ const Navbar = () => {
   const cart = useSelector(state => state.cart)
   const [grow, setGrow] = useState(true)
   let totalQuantityCart = 0
+
   const handleLoginBtn = () => {
     setIsOpen(true)
     setIsLogin(true)
@@ -65,7 +66,7 @@ const Navbar = () => {
               <NavLink to='/shop?user=me'
                 className={style.navbarBtn} >
                 <BiStore className={style.navbarIcon} />
-                <span className={style.navbarText}>shop </span>
+                <span className={style.navbarText}>My shop </span>
               </NavLink>
             }
             <li>

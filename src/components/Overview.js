@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getShopProducts } from '../redux/shop/shopActionCreators'
+import { getShopUser } from '../redux/shop/shopActionCreators'
 import styles from '../styles/Overview.module.css'
 import TableProduct from './TableProduct'
 
 const Overview = () => {
 
-  const currentShop = useSelector(state => state.shop.currentShop)
-  const shopProducts = useSelector(state => state.shop.shopProducts)
+  const shopUser = useSelector(state => state.shop.shopUser)
+
   const dispatch = useDispatch()
   
   useEffect(() => {
-    if (!shopProducts) {
-      dispatch(getShopProducts(currentShop.id))
+    if (!shopUser) {
+      dispatch(getShopUser())
     }
-  }, [dispatch, currentShop.id, shopProducts])
+  }, [dispatch, shopUser])
   
   return (
     <div>
@@ -28,9 +28,9 @@ const Overview = () => {
           <div className={styles.shopSummary}>
             <h2 className={styles.summaryTitle}>My Shop Summary</h2>
             <ul>
-              <li>Name: {currentShop.title} </li>
-              <li>Date: {currentShop.createdAt}</li>
-              <li>Status: {currentShop.status}</li>
+              <li>Name: {shopUser.title} </li>
+              <li>Date: {shopUser.createdAt}</li>
+              <li>Status: {shopUser.status}</li>
             </ul>
           </div>
         </div>

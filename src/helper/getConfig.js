@@ -11,10 +11,9 @@ export const getConfigFormData = () => ({
   }
 );
 
-export const getConfigUpdate = () => ({
+export const getConfigSignUp = () => ({
   headers: {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-    // 'Content-Type': 'application/x-www-form-urlencoded'
+    'Content-Type': 'multipart/form-data'
     }
   }
 );

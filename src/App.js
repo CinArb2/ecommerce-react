@@ -5,7 +5,6 @@ import ProductDetail from "./Pages/ProductDetail";
 import Shop from "./Pages/Shop"
 import Loader from "./components/Loader";
 import { useSelector } from "react-redux";
-import Purchases from "./Pages/Purchases";
 import ProtectedRoutes from "./Pages/ProtectedRoutes";
 import ShopManager from "./components/ShopManager";
 import CreateProduct from "./components/CreateProduct";
@@ -15,26 +14,39 @@ import ShopUpdate from "./components/ShopUpdate";
 import UserManager from "./Pages/UserManager";
 import UserSettings from "./components/UserSettings";
 import UserOrders from "./components/UserOrders";
+import MessageModal from "./components/MessageModal";
+import { useState } from "react";
 
 
 function App() {
   const isLoading = useSelector((state) => state.loader.isLoading);
+  const modalMsg = useSelector(state => state.error.modalMsg)
+
   return (
     <div className="App">
       <HashRouter>
-        {isLoading && <Loader/>}
-        <Navbar/>
+        {isLoading && <Loader />}
+        
+        <Navbar />
+        {modalMsg && <MessageModal/>}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/shop/:id" element={<Shop />}/>
+          <Route path="/shop/:id" element={<Shop />} />
+          
+          {/* protected routes */}
           <Route element={<ProtectedRoutes />}>
-            <Route path="/purchases" element={<Purchases />} />
-            <Route path="/shop/" element={<Shop />} />
+            
+            {/* User routes */}
             <Route path="/userManager/*" element={<UserManager />} >
               <Route path="orders" element={<UserOrders />} />
               <Route path="settings" element={<UserSettings/>}/>
             </Route>
+
+            {/* Shop route */}
+            <Route path="/shop/" element={<Shop />} />
+
+            {/* Shop Manager routes */}
             <Route path="/shop/manager/*" element={<ShopManager />}>
               <Route path="overview" element={<Overview/>}/>
               <Route path="createProduct" element={<CreateProduct/>}/>

@@ -40,7 +40,6 @@ function ProductInfo() {
   }
 
   const handleViewShop = () => {
-    dispatch(cleanShop())
     navigate(`/shop/${selectedProduct.shopId}`)
     window.scrollTo(0, 0);
   }

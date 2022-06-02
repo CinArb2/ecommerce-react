@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from '../styles/ProductUpdate.module.css'
 import { BsFillImageFill } from 'react-icons/bs'
-import { deleteProductById, fetchCategories } from '../redux/products/productActionCreators'
+import { deleteProductById, fetchCategories, updateProduct } from '../redux/products/productActionCreators'
 import setIsLoading from '../redux/loader/loaderActionCreators'
 import axios from 'axios'
-import { getShopProducts } from '../redux/shop/shopActionCreators'
+import { getShopProducts, getShopUser } from '../redux/shop/shopActionCreators'
 import TableProduct from './TableProduct'
 
 const ProductUpdate = () => {
@@ -20,14 +20,14 @@ const ProductUpdate = () => {
   const [selectedFile, setSelectedFile] = useState('');
   const dispatch = useDispatch()
   const categories = useSelector(state => state.products.categories)
-  const [errormsg, setErrorMsg] = useState('')
-  const currentShop = useSelector(state => state.shop.currentShop)
+  const shopUser = useSelector(state => state.shop.shopUser)
+  const errorMessage = useSelector(state => state.error.errorMsg)
   
   useEffect(() => {
-    if (!currentShop.id) {
-      dispatch(getShopProducts(currentShop.id))
+    if (!shopUser) {
+      dispatch(getShopUser())
     }
-  }, [dispatch, currentShop.id])
+  }, [dispatch, shopUser])
 
   useEffect(() => {
     if (!categories) {
@@ -51,7 +51,7 @@ const ProductUpdate = () => {
   }
 
   const handleDelete = (id) => {
-    dispatch(deleteProductById(id, currentShop.id))
+    dispatch(deleteProductById(id))
   }
 
   const handleUpdate = (productInfo) => {
@@ -69,14 +69,7 @@ const ProductUpdate = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault()
-    const API_URL = 'http://localhost:3000/api/v1'
     const formDataObj = new FormData();
-    const config = {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'content-type': 'multipart/form-data'
-      }
-    }
     
     if (selectedFile[0]) 
       formDataObj.append('productImgs', selectedFile[0]);
@@ -86,45 +79,29 @@ const ProductUpdate = () => {
     
     if (selectedFile[2])
     formDataObj.append('productImgs', selectedFile[2]);
-    
+
     formDataObj.append('title', formData.title);
     formDataObj.append('description', formData.description)
     formDataObj.append('price', formData.price)
     formDataObj.append('quantity', formData.quantity)
     formDataObj.append('categoryId', formData.categoryId)
-    // formDataObj.append('_method', 'PATCH');
 
-    for (let value of formDataObj.values()) {
-      console.log(value)
-    }
+    dispatch(updateProduct(formData.productId, formDataObj))
 
-    // dispatch(updateProduct(formData.productId, formDataObj, currentShop.id))
-
-    dispatch(setIsLoading(true))
-    axios.patch(`${API_URL}/products/${formData.productId}`, formDataObj, config)
-      .then(response => console.log(response))
-      .then(()=> dispatch(getShopProducts(currentShop.id)))
-      .then(() => {
-        setErrorMsg('')
-      })
-      .catch(error => {
-        console.log(error.response)
-        if (error.response.status === 404) {
-          setErrorMsg(error.response.data.message)
-        }
-      })
-      .finally(()=> dispatch(setIsLoading(false)))
     setSelectedFile('')
-    setFormData(
-      {
+  }
+
+  useEffect(() => {
+    if (errorMessage === 'success') {
+      setFormData({
         title: '',
         description: '',
         price: '',
         quantity: '',
         categoryId: '',
-      }
-    )
-  }
+      })
+    }
+  }, [errorMessage, shopUser.products.length])
 
   return (
     <div className={styles.containerUpdate}>
@@ -167,6 +144,7 @@ const ProductUpdate = () => {
             <input
               className={styles.inputNumber}
               type="number"
+              step="0.01"
               value={formData.price}
               name='price'
               min="1"
@@ -231,7 +209,6 @@ const ProductUpdate = () => {
             <button className={styles.btnCancel} type="reset">Cancel</button>
             <button className={styles.btnSubmit} type="submit">Submit</button>
           </div>
-          {errormsg && <p className={styles.messageError}> { errormsg} </p>}
         </form>
       </div>
     </div>

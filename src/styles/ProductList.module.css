@@ -6,6 +6,13 @@
   margin-block: 2rem;
 }
 
+@media screen and (min-width: 1550px){
+  .containerProducts{
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+
 @media screen and (max-width: 1250px){
   .containerProducts{
     grid-template-columns: 1fr 1fr;

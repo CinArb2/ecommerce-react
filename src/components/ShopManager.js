@@ -1,31 +1,31 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, Link, useLocation } from 'react-router-dom'
-import { getCurrentShop, getShopProducts } from '../redux/shop/shopActionCreators'
 import { getUserInfo } from '../redux/user/userActionCreators'
 import styles from '../styles/ShopManager.module.css'
 import { HiViewGridAdd } from 'react-icons/hi'
 import { BsPlusCircleDotted } from 'react-icons/bs'
 import { AiOutlineEdit } from 'react-icons/ai'
 import { FiSettings } from 'react-icons/fi'
+import { getShopUser } from '../redux/shop/shopActionCreators'
 
 const ShopManager = () => {
   const userInfo = useSelector(state => state.users.userInfo)
-  const currentShop = useSelector(state => state.shop.currentShop)
+  const shopUser = useSelector(state => state.shop.shopUser)
   const dispatch = useDispatch()
   const location = useLocation();
   const pathname = location.pathname.split('/')[3]
   
   useEffect(() => {
     dispatch(getUserInfo())
-    dispatch(getCurrentShop())
-  }, [dispatch, currentShop.id])
+    dispatch(getShopUser())
+  }, [dispatch])
 
-  useEffect(() => {
-    if (currentShop.id) {
-      dispatch(getShopProducts(currentShop.id))
-    }
-  }, [dispatch, currentShop.id])
+  // useEffect(() => {
+  //   if (currentShop.id) {
+  //     dispatch(getShopProducts(currentShop.id))
+  //   }
+  // }, [dispatch, currentShop.id])
 
   return (
     <div className={styles.wrapperShopManager}>

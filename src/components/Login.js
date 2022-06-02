@@ -1,16 +1,13 @@
 import React, { useState } from 'react'
 import styles from '../styles/Login.module.css'
-import axios from 'axios'
 import { useDispatch} from 'react-redux'
-import { setIsLoading } from '../redux/loader/loaderActionCreators'
-import { getUserInfo } from '../redux/user/userActionCreators'
+import { loginUser } from '../redux/user/userActionCreators'
 
-const Login = ({closeModal, setSignUp, setIsLogin}) => {
+const Login = ({setSignUp, setIsLogin}) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   })
-  const [loginError, setLoginError] = useState('')
   const dispatch = useDispatch()
 
   const handleChange = (e) => {
@@ -26,21 +23,7 @@ const Login = ({closeModal, setSignUp, setIsLogin}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(setIsLoading(true))
-    
-    axios.post('http://localhost:3000/api/v1/users/login', formData)
-      .then(resp => {
-        localStorage.setItem('token', resp.data.token)
-        setLoginError('')
-        closeModal(false)
-        dispatch(getUserInfo())
-      })
-      .catch(error => {
-        if (error.response.status === 400) {
-          setLoginError(error.response.data.message)
-        }
-      })
-      .finally(()=> dispatch(setIsLoading(false)))
+    dispatch(loginUser(formData))
   }
   
   return (
@@ -65,9 +48,6 @@ const Login = ({closeModal, setSignUp, setIsLogin}) => {
           onChange={handleChange}
         />
         <button className={styles.loginButton}>Login</button>
-
-        {loginError && <p className={styles.messageError}>{loginError}</p>}
-        
         <p>Don't have an account?
           <span
             className={styles.btnRedirect}

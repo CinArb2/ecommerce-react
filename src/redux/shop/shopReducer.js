@@ -1,21 +1,32 @@
 import { shopActions } from './shopActiontypes'
 
 const shopInitialState = {
-  currentShop: {},
+  shopUser: {},
+  shopSelected: {},
   shopProducts: []
 }
 
 const shopReducer = (state = shopInitialState, action) => {
   switch (action.type) {
-   case shopActions.SET_SHOP:
+   case shopActions.SET_SHOP_USER:
       return {
         ...state,
-        currentShop: action.payload
+        shopUser: action.payload
       };
     case shopActions.CLEAN_SHOP:
       return {
         ...state,
-        currentShop:  action.payload
+        shopUser: action.payload
+      };
+    case shopActions.SET_SELECTED_SHOP:
+      return {
+        ...state,
+        shopSelected: action.payload
+      };
+    case shopActions.CLEAN_SHOP_SELECTED:
+      return {
+        ...state,
+        shopSelected:  action.payload
       };
     case shopActions.SET_SHOP_PRODUCTS:
       return {

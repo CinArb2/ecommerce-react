@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../styles/ShopForm.module.css'
 import axios from 'axios'
-import { useDispatch} from 'react-redux'
+import { useDispatch, useSelector} from 'react-redux'
 import { setIsLoading } from '../redux/loader/loaderActionCreators'
 import { BsFillImageFill } from 'react-icons/bs'
-import { getCurrentShop } from '../redux/shop/shopActionCreators'
+import { createShop, getShopUser } from '../redux/shop/shopActionCreators'
+import { openModalMsg, setError } from '../redux/error/errorActionCreators'
 
 const ShopForm = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +16,9 @@ const ShopForm = () => {
     logoImg: '',
     coverImg: ''
   });
-  const [signUpError, setSignUpError] = useState('')
+   const shopUser = useSelector(state => state.shop.shopUser)
+  const errorMessage = useSelector(state => state.error.errorMsg)
+  
   const dispatch = useDispatch()
 
   const handleChange = (e) => {
@@ -31,38 +34,28 @@ const ShopForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const API_URL = 'http://localhost:3000/api/v1'
-    const formDataObj = new FormData();
-    const config = {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'content-type': 'multipart/form-data'
-      }
+
+    if (!selectedFile.logoImg) {
+      dispatch(setError('Please upload shop logo image'))
+      dispatch(openModalMsg())
+      return 
     }
 
+    if (!selectedFile.coverImg) {
+      dispatch(setError('Please upload shop cover image'))
+      dispatch(openModalMsg())
+      return 
+    }
+
+    const formDataObj = new FormData();
     
     formDataObj.append('logoImg', selectedFile.logoImg);
     formDataObj.append('coverImg', selectedFile.coverImg);
     formDataObj.append('title', formData.title);
     formDataObj.append('description', formData.description)
 
-    // for (let value of formDataObj.values()) {
-    //   console.log(value)
-    // }
 
-    dispatch(setIsLoading(true))
-    axios.post(`${API_URL}/shop`, formDataObj, config)
-      .then(()=> dispatch(getCurrentShop()))
-      .then(() => {
-        setSignUpError('')
-      })
-      .catch(error => {
-        console.log(error.response)
-        if (error.response.status === 404) {
-          setSignUpError(error.response.data.message)
-        }
-      })
-      .finally(()=> dispatch(setIsLoading(false)))
+    dispatch(createShop(formDataObj))
   }
 
   const inputImgChange = (e) => {
@@ -75,6 +68,12 @@ const ShopForm = () => {
       }
     })
   } 
+
+  useEffect(() => {
+    if (errorMessage === 'success') {
+      dispatch(getShopUser())
+    }
+  }, [errorMessage, dispatch])
 
 
   return (
@@ -142,7 +141,6 @@ const ShopForm = () => {
         <button
           className={styles.createShopButton}
           >Sign Up</button>
-        {signUpError && <p className={styles.messageError}> { signUpError} </p>}
       </form>
     </div>
   )

@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getShopProducts } from '../redux/shop/shopActionCreators'
+import { getShopUser } from '../redux/shop/shopActionCreators'
 import styles from '../styles/TableProduct.module.css'
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
 
 const TableProduct = ({addBtns, handleUpdate, handleDelete}) => {
   const dispatch = useDispatch()
-  const currentShop = useSelector(state => state.shop.currentShop)
-  const shopProducts = useSelector(state => state.shop.shopProducts)
+  const shopUser = useSelector(state => state.shop.shopUser)
+  // const shopProducts = useSelector(state => state.shop.shopProducts)
 
   useEffect(() => {
-    if (!shopProducts) {
-      dispatch(getShopProducts(currentShop.id))
+    if (!shopUser) {
+      dispatch(getShopUser())
     }
-  }, [dispatch, currentShop.id, shopProducts])
+  }, [dispatch, shopUser])
 
   return (
      <div className={styles.containerTable}>
@@ -27,7 +27,7 @@ const TableProduct = ({addBtns, handleUpdate, handleDelete}) => {
             { addBtns && <th>Actions</th>  }
           </tr>
           {
-            shopProducts.map(prod => (
+            shopUser.products.map(prod => (
               <tr key={prod.id}>
                 <td>{prod.title}</td>
                 <td>{prod.quantity}</td>

@@ -1,46 +1,54 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import ShopForm from '../components/ShopForm'
-import { getCurrentShop, getShopById, getShopProducts } from '../redux/shop/shopActionCreators'
+import { getShopById, getShopProducts, getShopUser } from '../redux/shop/shopActionCreators'
 import ShopDetails from '../components/ShopDetails'
 import ShopProductList from '../components/ShopProductList'
-import { useParams } from 'react-router'
+import { useLocation, useParams } from 'react-router'
+import { useSearchParams } from 'react-router-dom'
+
 
 
 const Shop = () => {
   const dispatch = useDispatch()
-  const currentShop = useSelector(state => state.shop.currentShop)
+  const shopUser = useSelector(state => state.shop.shopUser)
   const { id } = useParams()
-  
+  const location = useLocation()
+  const pathname = location.pathname
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    console.log(currentShop.id)
-    if (!id) {
-      console.log('current')
-      dispatch(getCurrentShop())
-      dispatch(getShopProducts(currentShop.id))
-    } else {
-      console.log('id')
+    if (id) {
       dispatch(getShopById(id))
       dispatch(getShopProducts(id))
     }
-    
-  }, [dispatch, currentShop.id, id])
 
+    if (searchParams.get("user") === 'me' && !shopUser.id) {
+      dispatch(getShopUser())
+    }
+  }, [dispatch, id, pathname, shopUser.id, searchParams])
 
   return (
     <div>
       {
-        currentShop.id   &&
+      (searchParams.get("user") === 'me' && shopUser.id)
+        &&
+          <>
+            <ShopDetails />
+            <ShopProductList/>
+          </>
+      }
+      {
+        id &&
         <>
           <ShopDetails />
           <ShopProductList/>
-        </>  
+        </>
       }
       {
-        (!currentShop.id && !id)  && <ShopForm/>
+        (searchParams.get("user") === 'me' && !shopUser.id)  && <ShopForm/>
       }
-    </div>    
+    </div>
   )
 }
 

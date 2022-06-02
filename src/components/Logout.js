@@ -27,7 +27,7 @@ const Logout = ({ closeModal }) => {
   }
 
   const handleMyShopBtn = () => {
-    navigate('/shop/')
+    navigate('/shop?user=me')
     closeModal(false)
     window.scrollTo(0,0)
   }

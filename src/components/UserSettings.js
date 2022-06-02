@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../styles/UserSettings.module.css'
 import { BsFillImageFill } from 'react-icons/bs'
-import { updateUserInfo } from '../redux/user/userActionCreators';
+import { deleteUser, updateUserInfo } from '../redux/user/userActionCreators';
 import { AiOutlineDelete } from 'react-icons/ai'
 
 const UserSettings = () => {
@@ -44,7 +44,11 @@ const UserSettings = () => {
 
   const inputImgChange = (e) => {
     setSelectedFile(e.target.files[0])
-  } 
+  }
+  
+  const handleDelete = () => {
+    dispatch(deleteUser(userInfo.id))
+  }
 
   return (
     <div className={styles.formUserContainer}>
@@ -96,7 +100,9 @@ const UserSettings = () => {
         <div className={styles.containerDelete}>
           <h3>Delete Profile</h3>
           <p>Once you deactivate your profile there is no way to reactivate it. </p>
-          <button className={styles.deleteUser}>
+          <button
+            onClick={handleDelete}
+            className={styles.deleteUser}>
             <AiOutlineDelete/>
             Delete
           </button>

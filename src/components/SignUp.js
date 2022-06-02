@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../styles/SignUp.module.css'
 import axios from 'axios'
-import { useDispatch} from 'react-redux'
+import { useDispatch, useSelector} from 'react-redux'
 import { setIsLoading } from '../redux/loader/loaderActionCreators'
 import { BsFillImageFill } from 'react-icons/bs'
+import { signUp } from '../redux/user/userActionCreators'
+import { openModalMsg, setError } from '../redux/error/errorActionCreators'
 
 const SignUp = ({ closeModal, setSignUp, setIsLogin }) => {
   const [formData, setFormData] = useState({
@@ -14,6 +16,8 @@ const SignUp = ({ closeModal, setSignUp, setIsLogin }) => {
   const [selectedFile, setSelectedFile] = useState('');
   const [signUpError, setSignUpError] = useState('')
   const dispatch = useDispatch()
+  const errorMessage = useSelector(state => state.error.errorMsg)
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,40 +32,38 @@ const SignUp = ({ closeModal, setSignUp, setIsLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const API_URL = 'http://localhost:3000/api/v1'
-    const formDataObj = new FormData();
-    const config = {
-      headers: {
-        'content-type': 'multipart/form-data'
-      }
-    }
 
-    if (selectedFile)
+    const formDataObj = new FormData();
+
+    if (!selectedFile) {
+      dispatch(setError('Please upload 1 image'))
+      dispatch(openModalMsg())
+      return 
+    }
+      
     formDataObj.append('avatarImg', selectedFile);
-    
     formDataObj.append('username', formData.username);
     formDataObj.append('email', formData.email)
     formDataObj.append('password', formData.password)
 
-    dispatch(setIsLoading(true))
-    axios.post(`${API_URL}/users`, formDataObj, config)
-      .then(() => {
-        setSignUpError('')
-        setIsLogin(true)
-        setSignUp(false)
-      })
-      .catch(error => {
-        console.log(error.response)
-        if (error.response.status === 404) {
-          setSignUpError(error.response.data.message)
-        }
-      })
-      .finally(()=> dispatch(setIsLoading(false)))
+    dispatch(signUp(formDataObj))
   }
 
   const inputImgChange = (e) => {
       setSelectedFile(e.target.files[0])
-  } 
+  }
+  
+  useEffect(() => {
+    if (errorMessage === 'success') {
+      setFormData({
+        username: '',
+        email: '',
+        password: '',
+      })
+      setIsLogin(true)
+      setSignUp(false)
+    }
+  }, [errorMessage, setIsLogin, setSignUp])
   
   return (
     <div className={styles.signUpContainer}>

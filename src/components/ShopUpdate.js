@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useDispatch, useSelector} from 'react-redux'
 import { setIsLoading } from '../redux/loader/loaderActionCreators'
 import { BsFillImageFill } from 'react-icons/bs'
-import { getCurrentShop } from '../redux/shop/shopActionCreators'
+import { deleteShop, getShopUser, updateShop } from '../redux/shop/shopActionCreators'
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
 
 const ShopUpdate = () => {
@@ -20,9 +20,10 @@ const ShopUpdate = () => {
     title: true,
     description: true
   })
-  const currentShop = useSelector(state=> state.shop.currentShop)
-  const [signUpError, setSignUpError] = useState('')
+  const shopUser = useSelector(state=> state.shop.shopUser)
   const dispatch = useDispatch()
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,14 +38,7 @@ const ShopUpdate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const API_URL = 'http://localhost:3000/api/v1'
     const formDataObj = new FormData();
-    const config = {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'content-type': 'multipart/form-data'
-      }
-    }
 
     if(selectedFile.logoImg)
       formDataObj.append('logoImg', selectedFile.logoImg)
@@ -58,23 +52,8 @@ const ShopUpdate = () => {
     if(formData.description)
     formDataObj.append('description', formData.description)
 
-    // for (let value of formDataObj.values()) {
-    //   console.log(value)
-    // }
+    dispatch(updateShop(shopUser.id, formDataObj))
 
-    dispatch(setIsLoading(true))
-    axios.patch(`${API_URL}/shop/${currentShop.id}`, formDataObj, config)
-      .then(()=> dispatch(getCurrentShop()))
-      .then(() => {
-        setSignUpError('')
-      })
-      .catch(error => {
-        console.log(error.response)
-        if (error.response.status === 404) {
-          setSignUpError(error.response.data.message)
-        }
-      })
-      .finally(()=> dispatch(setIsLoading(false)))
   }
 
   const inputImgChange = (e) => {
@@ -106,11 +85,15 @@ const ShopUpdate = () => {
     })
   }
 
+  const handleDelete = () => {
+    dispatch(deleteShop(shopUser.id))
+  }
+
   useEffect(() => {
-    if (!currentShop) {
-      dispatch(getCurrentShop())
+    if (!shopUser) {
+      dispatch(getShopUser())
     }
-  }, [dispatch, currentShop])
+  }, [dispatch, shopUser])
 
   return (
     
@@ -126,7 +109,7 @@ const ShopUpdate = () => {
               value={formData.title}
               name='title'
               onChange={handleChange}
-              placeholder={currentShop.title}
+              placeholder={shopUser.title}
               disabled={edit.title}
             />
             <button
@@ -145,7 +128,7 @@ const ShopUpdate = () => {
               type="text"
               value={formData.description}
               name='description'
-              placeholder={currentShop.description}
+              placeholder={shopUser.description}
               onChange={handleChange}
               disabled={edit.description}
             />
@@ -206,12 +189,13 @@ const ShopUpdate = () => {
               type="submit"
           >Submit</button>
         </div>
-        {signUpError && <p className={styles.messageError}> { signUpError} </p>}
       </form>
       <div className={styles.containerDelete}>
         <h3>Delete shop</h3>
         <p>Once you delete the store there is no way to reactivate it. </p>
-        <button className={styles.deleteShop}>
+        <button
+          onClick={handleDelete}
+          className={styles.deleteShop}>
           <AiOutlineDelete/>
           Delete
         </button>
