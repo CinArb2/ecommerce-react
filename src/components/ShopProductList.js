@@ -21,7 +21,7 @@ const ShopProductList = () => {
 
   return (
     <div className={styles.wrappeShopList}>
-      <h1>Shop products</h1>
+      <h2>Shop products</h2>
       <div className={styles.containerProducts}>
         {
           id ?

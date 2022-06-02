@@ -3,6 +3,24 @@
   margin: 0 auto;
 }
 
+.wrappeShopList h2{
+  margin-bottom: 1rem;
+  position: relative;
+  width: fit-content;
+}
+
+.wrappeShopList h2::after{
+  content: '';
+  height: 20px;
+  width: 100px;
+  position: absolute;
+  background-color: var(--title-deco);
+  right: -10%;
+  top: 40%;
+  z-index: -1;
+}
+
+
 .containerProducts{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

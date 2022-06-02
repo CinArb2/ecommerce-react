@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserOrders } from '../redux/user/userActionCreators'
 import OrderDetail from './OrderDetail'
+import styles from '../styles/UserOrders.module.css'
 
 const UserOrders = () => {
   const userOrders = useSelector(state => state.users.userOrders)
@@ -12,7 +13,7 @@ const UserOrders = () => {
   }, [dispatch, userOrders.length])
 
   return (
-    <div>
+    <div className={styles.orderContainer}>
       <h1>Order History</h1>
       <div>
         {
@@ -24,7 +25,7 @@ const UserOrders = () => {
             
           ))
             :
-            <p>You dont have any orders active</p>
+            <p>You dont have any orders active ...</p>
         }
       </div>
     </div>

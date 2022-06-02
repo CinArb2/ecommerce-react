@@ -69,6 +69,7 @@ const ProductUpdate = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault()
+    
     const formDataObj = new FormData();
     
     if (selectedFile[0]) 
@@ -85,7 +86,7 @@ const ProductUpdate = () => {
     formDataObj.append('price', formData.price)
     formDataObj.append('quantity', formData.quantity)
     formDataObj.append('categoryId', formData.categoryId)
-
+    
     dispatch(updateProduct(formData.productId, formDataObj))
 
     setSelectedFile('')

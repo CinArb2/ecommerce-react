@@ -11,7 +11,7 @@ import { getShopUser } from '../redux/shop/shopActionCreators'
 
 const ShopManager = () => {
   const userInfo = useSelector(state => state.users.userInfo)
-  const shopUser = useSelector(state => state.shop.shopUser)
+
   const dispatch = useDispatch()
   const location = useLocation();
   const pathname = location.pathname.split('/')[3]
@@ -20,12 +20,6 @@ const ShopManager = () => {
     dispatch(getUserInfo())
     dispatch(getShopUser())
   }, [dispatch])
-
-  // useEffect(() => {
-  //   if (currentShop.id) {
-  //     dispatch(getShopProducts(currentShop.id))
-  //   }
-  // }, [dispatch, currentShop.id])
 
   return (
     <div className={styles.wrapperShopManager}>

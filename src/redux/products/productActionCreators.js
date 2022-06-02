@@ -45,8 +45,8 @@ export const fetchSelectedCategory = (id) => {
 export const fetchProductQuery = (data) => {
   return async (dispatch) => {
     dispatch(setIsLoading(true))
-    const response = await axios.get(`https://ecommerce-api-react.herokuapp.com/api/v1/products?query=${data}`)
-    dispatch(setProductList(response.data.data.products))
+    const response = await axios.get(`${API_URL}/products?search=${data}`)
+    dispatch(setProductList(response.data.products))
     dispatch(setIsLoading(false))
   }
 }

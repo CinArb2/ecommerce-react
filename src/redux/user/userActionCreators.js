@@ -54,7 +54,7 @@ export const getUserInfo = () => {
     dispatch(setIsLoading(true))
     return axios.get(`${API_URL}/users/`, getConfig())
       .then((response) => dispatch(setUserInfo(response.data.userSession)))
-      .then(()=> dispatch(getProductsCart()))
+      // .then(()=> dispatch(getProductsCart()))
       .catch(error => {
         if (error.response.status === 404) {
           dispatch(cleanUserInfo())

@@ -1,0 +1,21 @@
+.orderContainer{
+  padding: 3rem;
+}
+
+.orderContainer h1{
+  position: relative;
+  width: fit-content;
+  z-index: 1;
+  margin-bottom: 1.5rem;
+}
+
+.orderContainer h1::after{
+  content: '';
+  height: 20px;
+  width: 100px;
+  position: absolute;
+  background-color: var(--title-deco);
+  right: -10%;
+  top: 40%;
+  z-index: -1;
+}

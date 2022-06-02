@@ -13,9 +13,7 @@ const SearchBar = ({grow, setGrow}) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     navigate('/')
-    const lowerCase = data.toLowerCase()
-    const formData = lowerCase[0].toUpperCase() + data.substring(1)
-    dispatch(fetchProductQuery(formData))
+    dispatch(fetchProductQuery(data))
   }
 
   return (

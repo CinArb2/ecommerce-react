@@ -51,3 +51,7 @@
   gap: 0.3rem;
   align-items: center;
 }
+
+.btnManageShop:hover{
+  background-color: var(--btn-hover);
+}

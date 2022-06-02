@@ -114,3 +114,11 @@
   background-color: var(--btn-selected);
   width: 100px;
 }
+
+.btnSubmit:hover{
+  background-color: var(--btn-hover);
+}
+
+.btnCancel:hover{
+  background-color: var(--gray-dark-hover);
+}

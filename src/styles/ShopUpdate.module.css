@@ -11,11 +11,6 @@
   text-align: left;
 }
 
-.shopFormImg{
-  height: 300px;
-  margin: 0 auto;
-}
-
 .inputLabel{
   display: block;
   margin-block: 0.5rem;
@@ -39,21 +34,6 @@
   align-items: center;
 }
 
-.createShopButton{
-  margin: 1rem auto;
-  background-color: var(--btn-color);
-  border: 1px solid var(--color-border);
-  border-radius: 50px;
-  padding-block: 0.5rem;
-  cursor: pointer;
-  font-size: 1rem;
-  letter-spacing: 1.2px;
-  color: inherit;
-  padding-left: 1rem;
-  display: block;
-  width: 200px;
-}
-
 .shopFormTitle{
   position: relative;
   width: fit-content;
@@ -71,21 +51,6 @@
   top: 40%;
   z-index: -1;
 }
-
-.btnRedirect{
-  color: #4383ea;
-  cursor: pointer;
-  padding-inline: 1rem;
-}
-
-.messageError{
-  margin-block: 1rem;
-  background-color: #ffd9d9;
-  padding: 1rem;
-  font-size: 1rem;
-  border-left: 9px solid red;
-}
-
 
 .inputImg{
   display: none;
@@ -118,6 +83,10 @@
   border: 1px solid var(--color-border);
   cursor: pointer;
   color: inherit;
+}
+
+.btnEdit:hover{
+  background-color: var(--btn-hover);
 }
 
 .iconEdit{
@@ -154,6 +123,14 @@
   display: block;
   background-color: var(--btn-selected);
   width: 100px;
+}
+
+.btnSubmit:hover{
+  background-color: var(--btn-hover);
+}
+
+.btnCancel:hover{
+  background-color: var(--gray-dark-hover);
 }
 
 .containerDelete{

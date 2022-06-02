@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { BiStore } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 import { addToCart, updateCart } from '../redux/cart/cartActionCreators'
-import { cleanShop } from '../redux/shop/shopActionCreators';
 import styles from '../styles/ProductInfo.module.css'
 import Cart from './Cart';
 import Login from './Login';
@@ -16,7 +15,6 @@ function ProductInfo() {
   const cart = useSelector(state => state.cart)
   const selectedProduct = useSelector(state => state.products.selectedProduct)
   const dispatch = useDispatch()
-  const [message, setMessage] = useState('')
   const navigate = useNavigate()
 
   //modal actions
@@ -26,8 +24,7 @@ function ProductInfo() {
 
   useEffect(() => {
     setCounter(1)
-    
-  }, [selectedProduct])
+  }, [selectedProduct.id])
 
   const addCounter = () => {
     setCounter(prev => prev + 1)
@@ -108,7 +105,6 @@ function ProductInfo() {
         onClick={handleCartBtn}>
         Add to cart
       </button>
-      {message && <p className={styles.messageError}>{message}</p>}
       </div>
       <Modal
         closeModal={setIsOpen}

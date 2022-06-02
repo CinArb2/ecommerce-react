@@ -16,12 +16,14 @@ const ProductCard = ({productInfo, path, setIsOpen}) => {
         productId: productInfo.id,
         quantity: ''
       }
+
       const findProduct =
         cart.productsCart.length > 0 ? 
         cart.productsCart.find(el => el.productId === productInfo.id) : null
-
+      
       if (findProduct) {
         productObj.quantity = findProduct.quantity + 1
+        
         dispatch(updateCart(productObj))
         setIsOpen(true)
         return 
